@@ -1,27 +1,21 @@
-#+title: fontaine.el: Set font configurations using presets
-#+author: Protesilaos Stavrou
-#+email: info@protesilaos.com
-#+language: en
-#+options: ':t toc:nil author:t email:t num:t
-#+startup: content
-
-#+macro: stable-version 0.2.0
-#+macro: release-date 2022-05-09
-#+macro: development-version 0.3.0-dev
-#+macro: file @@texinfo:@file{@@$1@@texinfo:}@@
-#+macro: space @@texinfo:@: @@
-#+macro: kbd @@texinfo:@kbd{@@$1@@texinfo:}@@
-
-#+export_file_name: fontaine.texi
-
-#+texinfo_filename: fontaine.info
-#+texinfo_dir_category: Emacs misc features
-#+texinfo_dir_title: Fontaine: (fontaine)
-#+texinfo_dir_desc: Set font configurations using presets
-#+texinfo_header: @set MAINTAINERSITE @uref{https://protesilaos.com,maintainer webpage}
-#+texinfo_header: @set MAINTAINER Protesilaos Stavrou
-#+texinfo_header: @set MAINTAINEREMAIL @email{info@protesilaos.com}
-#+texinfo_header: @set MAINTAINERCONTACT @uref{mailto:info@protesilaos.com,contact the maintainer}
+#+title:                 fontaine.el: Set font configurations using presets
+#+author:                Protesilaos Stavrou
+#+email:                 info@protesilaos.com
+#+language:              en
+#+options:               ':t toc:nil author:t email:t num:t
+#+startup:               content
+#+macro:                 stable-version 0.3.0
+#+macro:                 release-date 2022-07-06
+#+macro:                 development-version 0.4.0-dev
+#+export_file_name:      fontaine.texi
+#+texinfo_filename:      fontaine.info
+#+texinfo_dir_category:  Emacs misc features
+#+texinfo_dir_title:     Fontaine: (fontaine)
+#+texinfo_dir_desc:      Set font configurations using presets
+#+texinfo_header:        @set MAINTAINERSITE @uref{https://protesilaos.com,maintainer webpage}
+#+texinfo_header:        @set MAINTAINER Protesilaos Stavrou
+#+texinfo_header:        @set MAINTAINEREMAIL @email{info@protesilaos.com}
+#+texinfo_header:        @set MAINTAINERCONTACT @uref{mailto:info@protesilaos.com,contact the maintainer}
 
 #+texinfo: @insertcopying
 
@@ -36,10 +30,14 @@ commit, is explicitly marked as such.
 
 Current development target is {{{development-version}}}.
 
-+ Homepage: https://protesilaos.com/emacs/fontaine.
-+ Change log: https://protesilaos.com/emacs/fontaine-changelog.
-+ Git repository: https://git.sr.ht/~protesilaos/fontaine.
-+ Mailing list: https://lists.sr.ht/~protesilaos/fontaine.
++ Package name (GNU ELPA): =fontaine=
++ Official manual: <https://protesilaos.com/emacs/fontaine>
++ Change log: <https://protesilaos.com/emacs/fontaine-changelog>
++ Git repo on SourceHut: <https://git.sr.ht/~protesilaos/fontaine>
+  - Mirrors:
+    + GitHub: <https://github.com/protesilaos/fontaine>
+    + GitLab: <https://gitlab.com/protesilaos/fontaine>
++ Mailing list: <https://lists.sr.ht/~protesilaos/fontaine>
 
 #+toc: headlines 8 insert TOC here, with eight headline levels
 
