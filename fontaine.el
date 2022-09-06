@@ -426,21 +426,21 @@ ARGS are its routines."
 
 (fontaine--apply-preset
  fontaine--apply-bold-preset
-  "Set `bold' face attributes based on PRESET for optional FRAME."
-  (fontaine--set-face-attributes
-   'bold
-   (or (plist-get properties :bold-family) 'unspecified)
-   (or (plist-get properties :bold-weight) 'bold)
-   (or (plist-get properties :variable-pitch-height) 1.0)
-   frame))
+ "Set `bold' face attributes based on PRESET for optional FRAME."
+ (fontaine--set-face-attributes
+  'bold
+  (or (plist-get properties :bold-family) 'unspecified)
+  (or (plist-get properties :bold-weight) 'bold)
+  (or (plist-get properties :variable-pitch-height) 1.0)
+  frame))
 
 (fontaine--apply-preset
  fontaine--apply-italic-preset
-  "Set `italic' face attributes based on PRESET for optional FRAME."
-  (fontaine--set-italic-slant
-   (or (plist-get properties :italic-family) 'unspecified)
-   (or (plist-get properties :italic-slant) 'italic)
-   frame))
+ "Set `italic' face attributes based on PRESET for optional FRAME."
+ (fontaine--set-italic-slant
+  (or (plist-get properties :italic-family) 'unspecified)
+  (or (plist-get properties :italic-slant) 'italic)
+  frame))
 
 (defvar fontaine--font-display-hist '()
   "History of inputs for display-related font associations.")
@@ -469,8 +469,9 @@ ARGS are its routines."
 (defvar fontaine-set-preset-hook nil
   "Hook that runs after setting fonts.")
 
-(defvar fontaine--current-preset nil
-  "Current font set in `fontaine-presets'.")
+(defvar fontaine-current-preset nil
+  "Current font set in `fontaine-presets'.
+This is the preset last used by `fontaine-set-preset'.")
 
 ;;;###autoload
 (defun fontaine-set-preset (preset &optional frame)
@@ -501,7 +502,7 @@ non-nil."
     (fontaine--apply-variable-pitch-preset preset frame)
     (fontaine--apply-bold-preset preset frame)
     (fontaine--apply-italic-preset preset frame)
-    (setq fontaine--current-preset preset)
+    (setq fontaine-current-preset preset)
     (add-to-history 'fontaine--preset-history (format "%s" preset))
     (run-hooks 'fontaine-set-preset-hook)))
 
