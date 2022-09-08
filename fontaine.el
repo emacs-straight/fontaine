@@ -6,7 +6,7 @@
 ;; Maintainer: Fontaine Development <~protesilaos/fontaine@lists.sr.ht>
 ;; URL: https://git.sr.ht/~protesilaos/fontaine
 ;; Mailing-List: https://lists.sr.ht/~protesilaos/fontaine
-;; Version: 0.3.0
+;; Version: 0.4.0
 ;; Package-Requires: ((emacs "27.1"))
 
 ;; This file is NOT part of GNU Emacs.
@@ -250,7 +250,6 @@ Caveats or further notes:
 - Fontaine does not [yet] support Emacs' fontsets for other
   scripts or character sets (e.g. Emoji).  Read the documentation
   in the Info node `(emacs) Modifying Fontsets'."
-  :group 'fontaine
   :type `(alist
           :value-type
           (plist :options
@@ -284,6 +283,8 @@ Caveats or further notes:
 
                   ((const :tag "Line spacing" :line-spacing) ,(get 'line-spacing 'custom-type))))
           :key-type symbol)
+  :package-version '(fontaine . "0.4.0")
+  :group 'fontaine
   :link '(info-link "(fontaine) Shared and implicit fallback values for presets"))
 
 (defcustom fontaine-latest-state-file
@@ -295,6 +296,7 @@ which should be assigned to a hook (e.g. `kill-emacs-hook').
 This is then used to restore the last value with the function
 `fontaine-restore-latest-preset'."
   :type 'file
+  :package-version '(fontaine . "0.1.0")
   :group 'fontaine)
 
 (defcustom fontaine-font-families nil
@@ -331,6 +333,7 @@ combine the other two lists."
           (cons :tag "Variable pitch font families"
                 (const variable-pitch)
                 (repeat string)))
+  :package-version '(fontaine . "0.2.0")
   :group 'fontaine)
 
 ;;;; General utilities
@@ -380,6 +383,10 @@ ARGS are its routines."
      (if-let ((properties (append (alist-get preset fontaine-presets)
                                   (alist-get t fontaine-presets))))
          ,args
+       ;; FIXME 2022-09-07: Because we `append' the t of
+       ;; `fontaine-presets' this error is only relevant when the list
+       ;; is empty.  Perhaps we can harden the condition.  Otherwise we
+       ;; should reword this.
        (user-error "%s is not in `fontaine-presets' or is empty" preset))))
 
 (fontaine--apply-preset
@@ -471,7 +478,8 @@ ARGS are its routines."
 
 (defvar fontaine-current-preset nil
   "Current font set in `fontaine-presets'.
-This is the preset last used by `fontaine-set-preset'.")
+This is the preset last used by `fontaine-set-preset'.  Also see
+the command `fontaine-apply-current-preset'.")
 
 ;;;###autoload
 (defun fontaine-set-preset (preset &optional frame)
@@ -487,7 +495,10 @@ frame and apply the effects to it.
 
 When called interactively with a universal prefix
 argument (\\[universal-argument]), FRAME is interpreted as
-non-nil."
+non-nil.
+
+Set `fontaine-current-preset' to PRESET.  Also see the command
+`fontaine-apply-current-preset'."
   (interactive
    (list
     (if (= (length fontaine-presets) 1)
@@ -505,6 +516,28 @@ non-nil."
     (setq fontaine-current-preset preset)
     (add-to-history 'fontaine--preset-history (format "%s" preset))
     (run-hooks 'fontaine-set-preset-hook)))
+
+;;;###autoload
+(defun fontaine-apply-current-preset ()
+  "Use `fontaine-set-preset' on `fontaine-current-preset'.
+The value of `fontaine-current-preset' must be one of the keys in
+`fontaine-presets'.
+
+Re-applying the current preset is useful when a new theme is
+loaded which overrides certain font families.  For example, if
+the theme defines the `bold' face without a `:family', loading
+that theme will make `bold' use the `default' family, even if the
+`fontaine-presets' are configured to have different families
+between the two.  In such a case, applying the current preset at
+the post `load-theme' phase (e.g. via a hook) ensures that font
+configurations remain consistent.
+
+Some themes that provide hooks of this sort are the
+`modus-themes' and `ef-themes' (both by Protesilaos)."
+  (interactive)
+  (when-let* ((current fontaine-current-preset)
+              ((alist-get current fontaine-presets)))
+    (fontaine-set-preset current)))
 
 ;;;; Modify individual faces
 
@@ -524,10 +557,6 @@ non-nil."
 (defvar fontaine--face-history '()
   "Minibuffer history of `fontaine-set-face-font'.")
 
-(define-obsolete-variable-alias
-  'fontaine--font-family-history
-  'fontaine--default-font-family-history "2022-04-29")
-
 (defvar fontaine--default-font-family-history '()
   "Minibuffer history of selected `default' font families.")
 
@@ -542,9 +571,6 @@ Target FRAME, if provided as an optional argument."
     (seq-filter
      (lambda (fam)
        (aref fam 5))
-     ;; FIXME 2022-04-26: Is `x-family-fonts' the right call here, or
-     ;; will it not work in some Emacs builds?
-     ;;
      ;; NOTE 2022-04-26: `x-family-fonts' and `x-list-fonts' accept a
      ;; pattern, but I cannot find how to use it properly to filter out
      ;; certain families.
