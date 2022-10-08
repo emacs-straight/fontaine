@@ -6,7 +6,7 @@
 ;; Maintainer: Fontaine Development <~protesilaos/fontaine@lists.sr.ht>
 ;; URL: https://git.sr.ht/~protesilaos/fontaine
 ;; Mailing-List: https://lists.sr.ht/~protesilaos/fontaine
-;; Version: 0.4.0
+;; Version: 0.4.1
 ;; Package-Requires: ((emacs "27.1"))
 
 ;; This file is NOT part of GNU Emacs.
@@ -438,7 +438,6 @@ ARGS are its routines."
   'bold
   (or (plist-get properties :bold-family) 'unspecified)
   (or (plist-get properties :bold-weight) 'bold)
-  (or (plist-get properties :variable-pitch-height) 1.0)
   frame))
 
 (fontaine--apply-preset
