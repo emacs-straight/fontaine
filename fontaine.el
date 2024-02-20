@@ -29,89 +29,9 @@
 ;; them on demand on graphical Emacs frames.  The user option
 ;; `fontaine-presets' holds all such presets.
 ;;
-;; Presets consist of a list of properties that govern the family, weight,
-;; and height of the faces `default', `fixed-pitch', `variable-pitch',
-;; `bold', and `italic'.  Each preset is identified by a user-defined
-;; symbol as the car of a property list.  It looks like this (check the
-;; default value of `fontaine-presets' for how everything is pieced
-;; together):
-;;
-;;     (regular
-;;      :default-family "Hack"
-;;      :default-weight normal
-;;      :default-height 100
-;;      :fixed-pitch-family "Fira Code"
-;;      :fixed-pitch-weight nil ; falls back to :default-weight
-;;      :fixed-pitch-height 1.0
-;;      :variable-pitch-family "Noto Sans"
-;;      :variable-pitch-weight normal
-;;      :variable-pitch-height 1.0
-;;      :bold-family nil ; use whatever the underlying face has
-;;      :bold-weight bold
-;;      :italic-family "Source Code Pro"
-;;      :italic-slant italic
-;;      :line-spacing 1)
-;;
-;; The doc string of `fontaine-presets' explains all properties in detail
-;; and documents some important caveats or information about font settings
-;; in Emacs.
-;;
-;; The command `fontaine-set-preset' applies the desired preset.  If there
-;; is only one available, it implements it outright.  Otherwise it produces
-;; a minibuffer prompt with completion among the available presets.  When
-;; called from Lisp, the `fontaine-set-preset' requires a PRESET argument,
-;; such as:
-;;
-;;     (fontaine-set-preset 'regular)
-;;
-;; The default behaviour of `fontaine-set-preset' is to change fonts across
-;; all graphical frames.  The user can, however, limit the changes to a
-;; given frame.  For interactive use, this is done by invoking the command
-;; with a universal prefix argument (`C-u' by default), which changes fonts
-;; only in the current frame.  When used in Lisp, the FRAME argument can be
-;; a frame object (satisfies `framep') or a non-nil value: the former
-;; applies the effects to the given object, while the latter means the
-;; current frame and thus is the same as interactively supplying the prefix
-;; argument.
-;;
-;; The command `fontaine-set-face-font' prompts with completion for a face
-;; and then asks the user to specify the value of the relevant properties.
-;; Preferred font families can be defined in the user option
-;; `fontaine-font-families', otherwise Fontaine will try to find suitable
-;; options among the fonts installed on the system (not always reliable,
-;; depending on the Emacs build and environment it runs in).  The list of
-;; faces to choose from is the same as that implied by the
-;; `fontaine-presets'.  Properties to change and their respective values
-;; will depend on the face.  For example, the `default' face requires a
-;; natural number for its height attribute, whereas every other face needs
-;; a floating point (understood as a multiple of the default height).  This
-;; command is for interactive use only and is supposed to be used for
-;; previewing certain styles before eventually codifying them as presets.
-;;
-;; Changing the `bold' and `italic' faces only has a noticeable effect if
-;; the underlying theme does not hardcode a weight and slant but inherits
-;; from those faces instead (e.g. the `modus-themes').
-;;
-;; The `fontaine-set-face-font' also accepts an optional FRAME argument,
-;; which is the same as what was described above for `fontaine-set-preset'.
-;;
-;; The latest value of `fontaine-set-preset' is stored in a file whose
-;; location is defined in `fontaine-latest-state-file' (normally part of
-;; the `.emacs.d' directory).  Saving is done by the function
-;; `fontaine-store-latest-preset', which should be assigned to a hook
-;; (e.g. `kill-emacs-hook').  To restore that value, the user can call the
-;; function `fontaine-restore-latest-preset' (such as by adding it to their
-;; init file).
-;;
-;; For users of the `no-littering' package, `fontaine-latest-state-file' is
-;; not stored in their `.emacs.d', but in a standard directory instead:
-;; <https://github.com/emacscollective/no-littering>.
-;;
-;; As for the name of this package, it is the French word for
-;; "fountain" which, in turn, is what the font or source is.  However,
-;; I will not blame you if you can only interpret it as a descriptive
-;; backronym: Fonts, Ornaments, and Neat Typography Are Irrelevant in
-;; Non-graphical Emacs.
+;; Consult the manual for all the available features.  And remember
+;; that Fonts, Ornaments, and Neat Typography Are Irrelevant in
+;; Non-graphical Emacs (FONTAINE).
 
 ;;; Code:
 
@@ -150,15 +70,43 @@
      :default-family "Monospace"
      :default-weight regular
      :default-height 100
+
      :fixed-pitch-family nil ; falls back to :default-family
      :fixed-pitch-weight nil ; falls back to :default-weight
      :fixed-pitch-height 1.0
+
      :fixed-pitch-serif-family nil ; falls back to :default-family
      :fixed-pitch-serif-weight nil ; falls back to :default-weight
      :fixed-pitch-serif-height 1.0
+
      :variable-pitch-family "Sans"
      :variable-pitch-weight nil
      :variable-pitch-height 1.0
+
+     :mode-line-active-family nil ; falls back to :default-family
+     :mode-line-active-weight nil ; falls back to :default-weight
+     :mode-line-active-height 1.0
+
+     :mode-line-inactive-family nil ; falls back to :default-family
+     :mode-line-inactive-weight nil ; falls back to :default-weight
+     :mode-line-inactive-height 1.0
+
+     :header-line-family nil ; falls back to :default-family
+     :header-line-weight nil ; falls back to :default-weight
+     :header-line-height 1.0
+
+     :line-number-family nil ; falls back to :default-family
+     :line-number-weight nil ; falls back to :default-weight
+     :line-number-height 1.0
+
+     :tab-bar-family nil ; falls back to :default-family
+     :tab-bar-weight nil ; falls back to :default-weight
+     :tab-bar-height 1.0
+
+     :tab-line-family nil ; falls back to :default-family
+     :tab-line-weight nil ; falls back to :default-weight
+     :tab-line-height 1.0
+
      :bold-family nil ; use whatever the underlying face has
      :bold-weight bold
      :italic-family nil
@@ -208,6 +156,34 @@ The properties in detail:
   `:variable-pitch-height' apply to the `variable-pitch' face.
   They all fall back to the respective default values, as
   described above.
+
+- The `:mode-line-active-family', `:mode-line-active-weight', and
+  `:mode-line-active-height' apply to the `mode-line' and
+  `mode-line-active' faces.  They all fall back to the respective
+  default values, as described above.
+
+- The `:mode-line-inactive-family', `:mode-line-inactive-weight',
+  and `:mode-line-inactive-height' apply to the
+  `mode-line-inactive' face.  They all fall back to the
+  respective default values, as described above.
+
+- The `:header-line-family', `:header-line-weight', and
+  `:header-line-height' apply to the `header-line' face.  They
+  all fall back to the respective default values, as described
+  above.
+
+- The `:line-number-family', `:line-number-weight', and
+  `:line-number-height' apply to the `line-number' face.  They
+  all fall back to the respective default values, as described
+  above.
+
+- The `:tab-bar-family', `:tab-bar-weight', and `:tab-bar-height'
+  apply to the `tab-bar' face.  They all fall back to the
+  respective default values, as described above.
+
+- The `:tab-line-family', `:tab-line-weight', and
+  `:tab-line-height' apply to the `tab-line' face.  They all fall
+  back to the respective default values, as described above.
 
 - The `:bold-family' and `:italic-family' are the font families
   of the `bold' and `italic' faces, respectively.  Only set them
@@ -281,6 +257,30 @@ Caveats or further notes:
                   ((const :tag "Variable pitch regular weight" :variable-pitch-weight) ,fontaine--weights-widget)
                   ((const :tag "Variable pitch height" :variable-pitch-height) float)
 
+                  ((const :tag "Active mode line font family" :mode-line-active-family) string)
+                  ((const :tag "Active mode line regular weight" :mode-line-active-weight) ,fontaine--weights-widget)
+                  ((const :tag "Active mode line height" :mode-line-active-height) float)
+
+                  ((const :tag "Inactive mode line font family" :mode-line-inactive-family) string)
+                  ((const :tag "Inactive mode line regular weight" :mode-line-inactive-weight) ,fontaine--weights-widget)
+                  ((const :tag "Inactive mode line height" :mode-line-inactive-height) float)
+
+                  ((const :tag "Header line font family" :header-line-family) string)
+                  ((const :tag "Header line regular weight" :header-line-weight) ,fontaine--weights-widget)
+                  ((const :tag "Header line height" :header-line-height) float)
+
+                  ((const :tag "Line number font family" :line-number-family) string)
+                  ((const :tag "Line number regular weight" :line-number-weight) ,fontaine--weights-widget)
+                  ((const :tag "Line number height" :line-number-height) float)
+
+                  ((const :tag "Tab bar font family" :tab-bar-family) string)
+                  ((const :tag "Tab bar regular weight" :tab-bar-weight) ,fontaine--weights-widget)
+                  ((const :tag "Tab bar height" :tab-bar-height) float)
+
+                  ((const :tag "Tab line font family" :tab-line-family) string)
+                  ((const :tag "Tab line regular weight" :tab-line-weight) ,fontaine--weights-widget)
+                  ((const :tag "Tab line height" :tab-line-height) float)
+
                   ((const :tag "Font family of the `bold' face" :bold-family) string)
                   ((const :tag "Weight for the `bold' face" :bold-weight) ,fontaine--weights-widget)
 
@@ -300,7 +300,7 @@ Caveats or further notes:
                   ;; because it does not re-read `fontaine-presets'.
                   ((const :tag "Inherit another preset" :inherit) symbol)))
           :key-type symbol)
-  :package-version '(fontaine . "0.5.0")
+  :package-version '(fontaine . "1.1.0")
   :group 'fontaine
   :link '(info-link "(fontaine) Shared and implicit fallback values for presets"))
 
@@ -481,6 +481,76 @@ ARGS are its routines."
   frame))
 
 (fontaine--apply-preset
+ fontaine--apply-mode-line-preset
+ "Set `mode-line' face attributes based on PRESET for optional FRAME."
+ (fontaine--set-face-attributes
+  'mode-line
+  (or (plist-get properties :mode-line-family) (plist-get properties :default-family))
+  (or (plist-get properties :mode-line-weight) (plist-get properties :default-weight))
+  (or (plist-get properties :mode-line-height) 1.0)
+  frame))
+
+(fontaine--apply-preset
+ fontaine--apply-mode-line-active-preset
+ "Set `mode-line-active' face attributes based on PRESET for optional FRAME."
+ (fontaine--set-face-attributes
+  'mode-line-active
+  (or (plist-get properties :mode-line-active-family) (plist-get properties :default-family))
+  (or (plist-get properties :mode-line-active-weight) (plist-get properties :default-weight))
+  (or (plist-get properties :mode-line-active-height) 1.0)
+  frame))
+
+(fontaine--apply-preset
+ fontaine--apply-mode-line-inactive-preset
+ "Set `mode-line-inactive' face attributes based on PRESET for optional FRAME."
+ (fontaine--set-face-attributes
+  'mode-line-inactive
+  (or (plist-get properties :mode-line-inactive-family) (plist-get properties :default-family))
+  (or (plist-get properties :mode-line-inactive-weight) (plist-get properties :default-weight))
+  (or (plist-get properties :mode-line-inactive-height) 1.0)
+  frame))
+
+(fontaine--apply-preset
+ fontaine--apply-header-line-preset
+ "Set `header-line' face attributes based on PRESET for optional FRAME."
+ (fontaine--set-face-attributes
+  'header-line
+  (or (plist-get properties :header-line-family) (plist-get properties :default-family))
+  (or (plist-get properties :header-line-weight) (plist-get properties :default-weight))
+  (or (plist-get properties :header-line-height) 1.0)
+  frame))
+
+(fontaine--apply-preset
+ fontaine--apply-line-number-preset
+ "Set `line-number' face attributes based on PRESET for optional FRAME."
+ (fontaine--set-face-attributes
+  'line-number
+  (or (plist-get properties :line-number-family) (plist-get properties :default-family))
+  (or (plist-get properties :line-number-weight) (plist-get properties :default-weight))
+  (or (plist-get properties :line-number-height) 1.0)
+  frame))
+
+(fontaine--apply-preset
+ fontaine--apply-tab-bar-preset
+ "Set `tab-bar' face attributes based on PRESET for optional FRAME."
+ (fontaine--set-face-attributes
+  'tab-bar
+  (or (plist-get properties :tab-bar-family) (plist-get properties :default-family))
+  (or (plist-get properties :tab-bar-weight) (plist-get properties :default-weight))
+  (or (plist-get properties :tab-bar-height) 1.0)
+  frame))
+
+(fontaine--apply-preset
+ fontaine--apply-tab-line-preset
+ "Set `tab-line' face attributes based on PRESET for optional FRAME."
+ (fontaine--set-face-attributes
+  'tab-line
+  (or (plist-get properties :tab-line-family) (plist-get properties :default-family))
+  (or (plist-get properties :tab-line-weight) (plist-get properties :default-weight))
+  (or (plist-get properties :tab-line-height) 1.0)
+  frame))
+
+(fontaine--apply-preset
  fontaine--apply-bold-preset
  "Set `bold' face attributes based on PRESET for optional FRAME."
  (fontaine--set-face-attributes
@@ -559,6 +629,12 @@ Call `fontaine-set-preset-hook' as a final step."
     (fontaine--apply-fixed-pitch-preset preset frame)
     (fontaine--apply-fixed-pitch-serif-preset preset frame)
     (fontaine--apply-variable-pitch-preset preset frame)
+    (fontaine--apply-mode-line-active-preset preset frame)
+    (fontaine--apply-mode-line-inactive-preset preset frame)
+    (fontaine--apply-header-line-preset preset frame)
+    (fontaine--apply-line-number-preset preset frame)
+    (fontaine--apply-tab-bar-preset preset frame)
+    (fontaine--apply-tab-line-preset preset frame)
     (fontaine--apply-bold-preset preset frame)
     (fontaine--apply-italic-preset preset frame)
     (setq fontaine-current-preset preset)
