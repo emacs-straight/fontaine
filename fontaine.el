@@ -41,6 +41,15 @@
   "Set font configurations using presets."
   :group 'font)
 
+(defvar fontaine-font-weights
+  '( thin ultralight extralight light semilight regular medium
+     semibold bold heavy extrabold ultrabold)
+  "List of font weights.")
+
+(defvar fontaine-font-slants
+  '(normal italic oblique reverse-italic reverse-oblique)
+  "List of font slants.")
+
 (defconst fontaine--weights-widget
   '(choice :tag "Font weight (must be supported by the typeface)"
            (const :tag "Normal" normal)
@@ -56,6 +65,13 @@
            (const :tag "Extra-bold" extrabold)
            (const :tag "Ultra-bold" ultrabold))
   "Widget with font weights for `fontaine-presets'.")
+
+(defconst fontaine-faces
+  '( default fixed-pitch variable-pitch
+     mode-line-active mode-line-inactive
+     line-number tab-bar tab-line
+     bold italic)
+  "List of faces with relevant font attributes.")
 
 (defcustom fontaine-presets
   '((regular
@@ -191,12 +207,14 @@ The properties in detail:
 
 - The `:bold-weight' specifies the weight of the `bold' face.
   Its fallback value is bold, meaning the weight, not the face.
+  For more, refer to the value of `fontaine-font-weights'.  The
+  font family must support the given weight.
 
 - The `:italic-slant' specifies the slant of the `italic' face.
   Its fallback value is italic, in reference to the slant, not
-  the face.  Acceptable values are `italic', `oblique', `normal',
-  `reverse-italic', `reverse-oblique' and must be supported by
-  the underlying typeface.
+  the face.  Acceptable values are those included in the value of
+  `fontaine-font-slants' and must be supported by the underlying
+  typeface
 
 - The `:line-spacing' specifies the value of the `line-spacing'
   variable.
@@ -376,11 +394,36 @@ combine the other two lists."
    (frame nil)
    (t 0)))
 
-(defun fontaine--set-face-attributes (face family &optional weight height frame)
-  "Set FACE font to FAMILY, with optional HEIGHT, WEIGHT, FRAME."
-  (let ((family (or family "Monospace"))
-        (height (or height (if (eq face 'default) 100 1.0)))
-        (weight (or weight 'normal))
+(defun fontaine--set-face-attributes (face family &optional weight slant height frame)
+  "Set FACE font to FAMILY, with optional WEIGHT, SLANT, HEIGHT, FRAME."
+  (let ((family (cond
+                 ((and (eq face 'variable-pitch)
+                       (or (eq family 'unspecified)
+                           (null family)))
+                  "Sans")
+                 (family family)
+                 (t "Monospace")))
+        (height (cond
+                 ((and (eq face 'default)
+                       (or (eq height 'unspecified)
+                           (null height)))
+                  100)
+                 (height height)
+                 (t 1.0)))
+        (weight (cond
+                 ((and (eq face 'bold)
+                       (or (eq weight 'unspecified)
+                           (null weight)))
+                  'bold)
+                 (weight weight)
+                 (t 'normal)))
+        (slant (cond
+                 ((and (eq face 'italic)
+                       (or (eq slant 'unspecified)
+                           (null slant)))
+                  'italic)
+                 (slant slant)
+                 (t 'normal)))
         (frames (fontaine--frame frame)))
     ;; ;; Read this: <https://debbugs.gnu.org/cgi/bugreport.cgi?bug=45920>
     ;; ;; Hence why the following fails.  Keeping it for posterity...
@@ -388,20 +431,11 @@ combine the other two lists."
     (if (eq (face-attribute face :weight) weight)
         (internal-set-lisp-face-attribute face :family family frames)
       (internal-set-lisp-face-attribute face :weight weight frames)
+      (internal-set-lisp-face-attribute face :slant slant frames)
       (internal-set-lisp-face-attribute face :family family frames)
-      (internal-set-lisp-face-attribute face :weight weight frames))
+      (internal-set-lisp-face-attribute face :weight weight frames)
+      (internal-set-lisp-face-attribute face :slant slant frames))
     (internal-set-lisp-face-attribute face :height height frames)))
-
-(defun fontaine--set-italic-slant (family slant &optional frame)
-  "Set FAMILY and SLANT of `italic' face on optional FRAME."
-  (let ((slant (or slant 'italic))
-        (family (or family 'unspecified))
-        (frames (fontaine--frame frame)))
-    (if (eq (face-attribute 'italic :slant) slant)
-        (internal-set-lisp-face-attribute 'italic :family family frames)
-      (internal-set-lisp-face-attribute 'italic :slant slant frames)
-      (internal-set-lisp-face-attribute 'italic :family family frames)
-      (internal-set-lisp-face-attribute 'italic :slant slant frames))))
 
 ;;;; Apply preset configurations
 
@@ -424,156 +458,35 @@ combine the other two lists."
               (alist-get inherit presets))
             (alist-get t presets))))
 
-(defmacro fontaine--apply-preset (fn doc args)
-  "Produce function to apply preset.
-FN is the symbol of the function, DOC is its documentation, and
-ARGS are its routines."
-  `(defun ,fn (preset &optional frame)
-     ,doc
-     (if-let ((properties (fontaine--get-preset-properties preset)))
-         ,args
-       ;; FIXME 2022-09-07: Because we `append' the t of
-       ;; `fontaine-presets' this error is only relevant when the list
-       ;; is empty.  Perhaps we can harden the condition.  Otherwise we
-       ;; should reword this.
-       (user-error "%s is not in `fontaine-presets' or is empty" preset))))
+(defun fontaine--get-preset-property (preset property)
+  "Get PRESET's PROPERTY."
+  (plist-get (fontaine--get-preset-properties preset) property))
 
-(fontaine--apply-preset
- fontaine--apply-default-preset
- "Set `default' face attributes based on PRESET for optional FRAME."
- (progn
-   (fontaine--set-face-attributes
-    'default
-    (plist-get properties :default-family)
-    (plist-get properties :default-weight)
-    (plist-get properties :default-height)
-    frame)
-   (setq-default line-spacing (plist-get properties :line-spacing))))
+(defun fontaine--set-face (preset face &optional frame)
+  "Set font properties taken from PRESET to FACE in optional FRAME.
+If FRAME is nil, apply the effect to all frames."
+  (let ((properties (fontaine--get-preset-properties preset)))
+    (fontaine--set-face-attributes
+     face
+     (or (plist-get properties (intern (format ":%s-family" face))) 'unspecified)
+     (or (plist-get properties (intern (format ":%s-weight" face))) 'unspecified)
+     (or (plist-get properties (intern (format ":%s-height" face))) 'unspecified)
+     frame)))
 
-(fontaine--apply-preset
- fontaine--apply-fixed-pitch-preset
- "Set `fixed-pitch' face attributes based on PRESET for optional FRAME."
- (fontaine--set-face-attributes
-  'fixed-pitch
-  (or (plist-get properties :fixed-pitch-family) (plist-get properties :default-family))
-  (or (plist-get properties :fixed-pitch-weight) (plist-get properties :default-weight))
-  (or (plist-get properties :fixed-pitch-height) 1.0)
-  frame))
-
-(fontaine--apply-preset
- fontaine--apply-fixed-pitch-serif-preset
- "Set `fixed-pitch-serif' face attributes based on PRESET for optional FRAME."
- (fontaine--set-face-attributes
-  'fixed-pitch-serif
-  (or (plist-get properties :fixed-pitch-family) (plist-get properties :default-family))
-  (or (plist-get properties :fixed-pitch-weight) (plist-get properties :default-weight))
-  (or (plist-get properties :fixed-pitch-height) 1.0)
-  frame))
-
-(fontaine--apply-preset
- fontaine--apply-variable-pitch-preset
- "Set `variable-pitch' face attributes based on PRESET for optional FRAME."
- (fontaine--set-face-attributes
-  'variable-pitch
-  (or (plist-get properties :variable-pitch-family) (plist-get properties :default-family))
-  (or (plist-get properties :variable-pitch-weight) (plist-get properties :default-weight))
-  (or (plist-get properties :variable-pitch-height) 1.0)
-  frame))
-
-(fontaine--apply-preset
- fontaine--apply-mode-line-preset
- "Set `mode-line' face attributes based on PRESET for optional FRAME."
- (fontaine--set-face-attributes
-  'mode-line
-  (or (plist-get properties :mode-line-family) (plist-get properties :default-family))
-  (or (plist-get properties :mode-line-weight) (plist-get properties :default-weight))
-  (or (plist-get properties :mode-line-height) 1.0)
-  frame))
-
-(fontaine--apply-preset
- fontaine--apply-mode-line-active-preset
- "Set `mode-line-active' face attributes based on PRESET for optional FRAME."
- (fontaine--set-face-attributes
-  'mode-line-active
-  (or (plist-get properties :mode-line-active-family) (plist-get properties :default-family))
-  (or (plist-get properties :mode-line-active-weight) (plist-get properties :default-weight))
-  (or (plist-get properties :mode-line-active-height) 1.0)
-  frame))
-
-(fontaine--apply-preset
- fontaine--apply-mode-line-inactive-preset
- "Set `mode-line-inactive' face attributes based on PRESET for optional FRAME."
- (fontaine--set-face-attributes
-  'mode-line-inactive
-  (or (plist-get properties :mode-line-inactive-family) (plist-get properties :default-family))
-  (or (plist-get properties :mode-line-inactive-weight) (plist-get properties :default-weight))
-  (or (plist-get properties :mode-line-inactive-height) 1.0)
-  frame))
-
-(fontaine--apply-preset
- fontaine--apply-header-line-preset
- "Set `header-line' face attributes based on PRESET for optional FRAME."
- (fontaine--set-face-attributes
-  'header-line
-  (or (plist-get properties :header-line-family) (plist-get properties :default-family))
-  (or (plist-get properties :header-line-weight) (plist-get properties :default-weight))
-  (or (plist-get properties :header-line-height) 1.0)
-  frame))
-
-(fontaine--apply-preset
- fontaine--apply-line-number-preset
- "Set `line-number' face attributes based on PRESET for optional FRAME."
- (fontaine--set-face-attributes
-  'line-number
-  (or (plist-get properties :line-number-family) (plist-get properties :default-family))
-  (or (plist-get properties :line-number-weight) (plist-get properties :default-weight))
-  (or (plist-get properties :line-number-height) 1.0)
-  frame))
-
-(fontaine--apply-preset
- fontaine--apply-tab-bar-preset
- "Set `tab-bar' face attributes based on PRESET for optional FRAME."
- (fontaine--set-face-attributes
-  'tab-bar
-  (or (plist-get properties :tab-bar-family) (plist-get properties :default-family))
-  (or (plist-get properties :tab-bar-weight) (plist-get properties :default-weight))
-  (or (plist-get properties :tab-bar-height) 1.0)
-  frame))
-
-(fontaine--apply-preset
- fontaine--apply-tab-line-preset
- "Set `tab-line' face attributes based on PRESET for optional FRAME."
- (fontaine--set-face-attributes
-  'tab-line
-  (or (plist-get properties :tab-line-family) (plist-get properties :default-family))
-  (or (plist-get properties :tab-line-weight) (plist-get properties :default-weight))
-  (or (plist-get properties :tab-line-height) 1.0)
-  frame))
-
-(fontaine--apply-preset
- fontaine--apply-bold-preset
- "Set `bold' face attributes based on PRESET for optional FRAME."
- (fontaine--set-face-attributes
-  'bold
-  (or (plist-get properties :bold-family) 'unspecified)
-  (or (plist-get properties :bold-weight) 'bold)
-  'unspecified
-  frame))
-
-(fontaine--apply-preset
- fontaine--apply-italic-preset
- "Set `italic' face attributes based on PRESET for optional FRAME."
- (fontaine--set-italic-slant
-  (or (plist-get properties :italic-family) 'unspecified)
-  (or (plist-get properties :italic-slant) 'italic)
-  frame))
+(defun fontaine--set-faces (preset frame)
+  "Set all `fontaine-faces' according to PRESET in FRAME."
+  (mapc
+   (lambda (face)
+     (fontaine--set-face preset face frame))
+   fontaine-faces)
+  (setq-default line-spacing (fontaine--get-preset-property preset :line-spacing)))
 
 (defvar fontaine--font-display-hist '()
   "History of inputs for display-related font associations.")
 
 (defun fontaine--presets-no-fallback ()
   "Return list of `fontaine-presets', minus the fallback value."
-  (delete
+  (delq
    nil
    (mapcar (lambda (symbol)
              (unless (eq (car symbol) t)
@@ -601,8 +514,8 @@ the command `fontaine-apply-current-preset'.")
 (defun fontaine-set-preset (preset &optional frame)
   "Set font configurations specified in PRESET.
 PRESET is a symbol that represents the car of a list in
-`fontaine-presets'.  If there is only one available, apply it
-outright, else prompt with completion.
+`fontaine-presets'.  When called interactively, prompt for
+PRESET.g
 
 Unless optional FRAME argument is supplied, apply the change to
 all frames.  If FRAME satisfies `framep', then make the changes
@@ -617,33 +530,17 @@ Set `fontaine-current-preset' to PRESET.  Also see the command
 `fontaine-apply-current-preset'.
 
 Call `fontaine-set-preset-hook' as a final step."
-  (interactive
-   (list
-    (if (= (length fontaine-presets) 1)
-        (caar fontaine-presets)
-      (fontaine--set-fonts-prompt))
-    current-prefix-arg))
+  (interactive (list (fontaine--set-fonts-prompt) current-prefix-arg))
   (if (and (not (daemonp)) (not window-system))
       (user-error "Cannot use this in a terminal emulator; try the Emacs GUI")
-    (fontaine--apply-default-preset preset frame)
-    (fontaine--apply-fixed-pitch-preset preset frame)
-    (fontaine--apply-fixed-pitch-serif-preset preset frame)
-    (fontaine--apply-variable-pitch-preset preset frame)
-    (fontaine--apply-mode-line-active-preset preset frame)
-    (fontaine--apply-mode-line-inactive-preset preset frame)
-    (fontaine--apply-header-line-preset preset frame)
-    (fontaine--apply-line-number-preset preset frame)
-    (fontaine--apply-tab-bar-preset preset frame)
-    (fontaine--apply-tab-line-preset preset frame)
-    (fontaine--apply-bold-preset preset frame)
-    (fontaine--apply-italic-preset preset frame)
+    (fontaine--set-faces preset frame)
     (setq fontaine-current-preset preset)
     (unless frame
       (add-to-history 'fontaine--preset-history (format "%s" preset)))
     (run-hooks 'fontaine-set-preset-hook)))
 
 ;;;###autoload
-(defun fontaine-apply-current-preset (&optional _theme)
+(defun fontaine-apply-current-preset (&rest _)
   "Use `fontaine-set-preset' on `fontaine-current-preset'.
 The value of `fontaine-current-preset' must be one of the keys in
 `fontaine-presets'.
@@ -660,190 +557,13 @@ configurations remain consistent.
 Some themes that provide hooks of this sort are the
 `modus-themes', `ef-themes', `standard-themes' (all by
 Protesilaos).  Alternatively, Emacs 29 provides the special
-`enable-theme-functions' hook, which passes the THEME argument
-for this function."
+`enable-theme-functions' hook, which passes a THEME argument
+which this function ignores"
   (interactive)
-  (when-let* ((current fontaine-current-preset)
-              ((alist-get current fontaine-presets)))
-    (fontaine-set-preset current)))
-
-;;;; Modify individual faces
-
-(defconst fontaine--font-faces
-  '(default fixed-pitch fixed-pitch-serif variable-pitch bold italic)
-  "List of faces whose typographic attributes we may change.")
-
-(defconst fontaine--font-weights
-  '( normal regular thin ultralight extralight light semilight
-     medium semibold bold extrabold ultrabold)
-  "List of font weights.")
-
-(defconst fontaine--font-slants
-  '( normal oblique italic reverse-oblique reverse-italic)
-  "List of font slants.")
-
-(defvar fontaine--face-history '()
-  "Minibuffer history of `fontaine-set-face-font'.")
-
-(defvar fontaine--default-font-family-history '()
-  "Minibuffer history of selected `default' font families.")
-
-;; We have `font-family-list', which is unfiltered.
-(defun fontaine--family-list-fixed-pitch (&optional frame)
-  "Return a list of available monospaced font families.
-Target FRAME, if provided as an optional argument."
-  (seq-uniq
-   (seq-map
-    (lambda (fam)
-      (symbol-name (aref fam 0)))
-    (seq-filter
-     (lambda (fam)
-       (aref fam 5))
-     ;; NOTE 2022-04-26: `x-family-fonts' and `x-list-fonts' accept a
-     ;; pattern, but I cannot find how to use it properly to filter out
-     ;; certain families.
-     (x-family-fonts nil frame)))))
-
-;; NOTE 2022-04-29: This is known to not work on Windows, except for
-;; Emacs 29.  Read:
-;; <https://lists.gnu.org/archive/html/emacs-devel/2022-04/msg01281.html>.
-(defun fontaine--family-list-variable-pitch (&optional frame)
-  "Return a list of available proportionately spaced font families.
-Target FRAME, if provided as an optional argument."
-  (seq-uniq
-   (seq-map
-    (lambda (fam)
-      (symbol-name (aref fam 0)))
-    (seq-filter
-     (lambda (fam)
-       (null (aref fam 5)))
-     (x-family-fonts nil frame)))))
-
-(defvar fontaine--natnum-history '()
-  "Minibuffer history for natural numbers.")
-
-(defun fontaine--set-default (&optional frame)
-  "Set `default' attributes, optionally for FRAME."
-  (let* ((families (or (alist-get 'default fontaine-font-families)
-                       (append (alist-get 'fixed-pitch fontaine-font-families)
-                               (alist-get 'variable-pitch fontaine-font-families))
-                       (font-family-list)))
-         (family (completing-read "Font family of `default': "
-                                  families nil t
-                                  nil 'fontaine--default-font-family-history))
-         (weight (intern (completing-read "Select weight for `default': "
-                                          fontaine--font-weights nil)))
-         (height (read-number "Height of `default' face (must be a natural number): "
-                              (and fontaine--natnum-history
-                                   (string-to-number (nth 0 fontaine--natnum-history)))
-                              'fontaine--natnum-history)))
-    (if (natnump height)
-        (fontaine--set-face-attributes 'default family weight height frame)
-      (user-error "Height of `default' face must be a natural number"))))
-
-(defvar fontaine--float-history '()
-  "Minibuffer history for floating point numbers.")
-
-(defvar fontaine--fixed-pitch-font-family-history '()
-  "Minibuffer history of selected `fixed-pitch' font families.")
-
-(defun fontaine--set-fixed-pitch (&optional frame serif)
-  "Set `fixed-pitch' attributes, optionally for FRAME.
-If optional SERIF is non-nil, operate on the `fixed-pitch-serif'
-face."
-  (let* ((families (or (alist-get 'fixed-pitch fontaine-font-families)
-                       (fontaine--family-list-fixed-pitch)))
-         (family (completing-read "Font family of `fixed-pitch': "
-                                  families nil t nil
-                                  'fontaine--fixed-pitch-font-family-history))
-         (weight (intern (completing-read "Select weight for `fixed-pitch': "
-                                          fontaine--font-weights nil)))
-         (height (read-number "Height of `fixed-pitch' face (must be a floating point): "
-                              1.0 'fontaine--float-history))
-         (face (if serif 'fixed-pitch-serif 'fixed-pitch)))
-    (if (floatp height)
-        (fontaine--set-face-attributes face family weight height frame)
-      (user-error "Height of `fixed-pitch' face must be a floating point"))))
-
-(defvar fontaine--variable-pitch-font-family-history '()
-  "Minibuffer history of selected `variable-pitch' font families.")
-
-(defun fontaine--set-variable-pitch (&optional frame)
-  "Set `variable-pitch' attributes, optionally for FRAME."
-  (let* ((families (or (alist-get 'variable-pitch fontaine-font-families)
-                       (fontaine--family-list-variable-pitch)))
-         (family (completing-read "Font family of `variable-pitch': "
-                                  families nil t nil
-                                  'fontaine--variable-pitch-font-family-history))
-         (weight (intern (completing-read "Select weight for `variable-pitch': "
-                                          fontaine--font-weights nil)))
-         (height (read-number "Height of `variable-pitch' face (must be a floating point): "
-                              1.0 'fontaine--float-history)))
-    (if (floatp height)
-        (fontaine--set-face-attributes 'variable-pitch family weight height frame)
-      (user-error "Height of `variable-pitch' face must be a floating point"))))
-
-(defun fontaine--set-bold (&optional frame)
-  "Set `bold' attributes, optionally for FRAME."
-  (let ((weight (intern (completing-read "Select weight for `bold': "
-                                         fontaine--font-weights nil t))))
-    (fontaine--set-face-attributes 'bold 'unspecified weight 'unspecified frame)))
-
-(defun fontaine--set-italic (&optional frame)
-  "Set `italic' attributes, optionally for FRAME."
-  (let ((slant (intern (completing-read "Select slant for `italic': "
-                                        fontaine--font-slants nil t))))
-    (fontaine--set-italic-slant 'unspecified slant frame)))
-
-;;;###autoload
-(defun fontaine-set-face-font (face &optional frame)
-  "Set font and/or other attributes of FACE.
-
-When called interactively, prompt for FACE and then continue
-prompting for the relevant face attributes each of which depends
-on the FACE (for example, the `default' FACE accepts a family, a
-height as a natural number, and a weight, whereas `bold' only
-accepts a weight).
-
-With regard to the font family that some faces accept, the
-candidates are those specified in the user option
-`fontaine-font-families'.  If none are specified, try to find
-relevant installed fonts and provide them as completion
-candidates.
-
-Note that changing the `bold' and `italic' faces only has a
-noticeable effect if the underlying does not hardcode a weight
-and slant but inherits from those faces instead (e.g. the
-`modus-themes').
-
-When called from Lisp (albeit discouraged), if FACE is not part
-of `fontaine--font-faces', fall back to interactively calling
-`fontaine-set-preset'.
-
-Unless optional FRAME argument is supplied, apply the change to
-all frames.  If FRAME satisfies `framep', then make the changes
-affect only it.  If FRAME is non-nil, interpret it as the current
-frame and apply the effects to it.
-
-When called interactively with a universal prefix
-argument (\\[universal-argument]), FRAME is interpreted as
-non-nil."
-  (declare (interactive-only t))
-  (interactive
-   (list
-    (intern
-     (completing-read "Which face to change? "
-                      fontaine--font-faces nil t nil
-                      'fontaine--face-history))
-    current-prefix-arg))
-  (pcase face
-    ('bold (fontaine--set-bold frame))
-    ('default (fontaine--set-default frame))
-    ('fixed-pitch (fontaine--set-fixed-pitch frame))
-    ('fixed-pitch-serif (fontaine--set-fixed-pitch frame :serif))
-    ('italic (fontaine--set-italic frame))
-    ('variable-pitch (fontaine--set-variable-pitch frame))
-    (_ (call-interactively #'fontaine-set-preset))))
+  (if-let ((current fontaine-current-preset)
+           ((alist-get current fontaine-presets)))
+      (fontaine-set-preset current)
+    (user-error "The `fontaine-current-preset' is not among `fontaine-presets'")))
 
 ;;;; Store and restore preset
 
