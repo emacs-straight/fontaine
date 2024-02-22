@@ -63,15 +63,34 @@
            (const :tag "Semi-bold" semibold)
            (const :tag "Bold" bold)
            (const :tag "Extra-bold" extrabold)
-           (const :tag "Ultra-bold" ultrabold))
+           (const :tag "Ultra-bold" ultrabold)
+           (const :tag "Use fallback value" nil))
   "Widget with font weights for `fontaine-presets'.")
 
+(defconst fontaine--slants-widget
+  '(choice :tag "Font slant (must be supported by the typeface)"
+           (const italic)
+           (const oblique)
+           (const normal)
+           (const reverse-italic)
+           (const reverse-oblique)
+           (const :tag "Use fallback value" nil))
+  "Widget with font slants for `fontaine-presets'.")
+
 (defconst fontaine-faces
-  '( default fixed-pitch variable-pitch
+  '( default fixed-pitch fixed-pitch-serif variable-pitch
      mode-line-active mode-line-inactive
      line-number tab-bar tab-line
      bold italic)
   "List of faces with relevant font attributes.")
+
+(defun fontaine--get-face-widget (face)
+  "Define `fontaine-presets' properties for FACE as a widget."
+  (list
+   `((const :tag ,(format "%s font family" face) ,(intern (format ":%s-family" face))) string)
+   `((const :tag ,(format "%s weight" face) ,(intern (format ":%s-weight" face))) ,fontaine--weights-widget)
+   `((const :tag ,(format "%s slant" face) ,(intern (format ":%s-slant" face))) ,fontaine--slants-widget)
+   `((const :tag ,(format "%s height" face) ,(intern (format ":%s-height" face))) float)))
 
 (defcustom fontaine-presets
   '((regular
@@ -82,53 +101,72 @@
      :bold-weight extrabold)
     (t
      ;; I keep all properties for didactic purposes, but most can be
-     ;; omitted.
+     ;; omitted.  See the fontaine manual for the technicalities:
+     ;; <https://protesilaos.com/emacs/fontaine>.
      :default-family "Monospace"
      :default-weight regular
+     :default-slant normal
      :default-height 100
 
-     :fixed-pitch-family nil ; falls back to :default-family
-     :fixed-pitch-weight nil ; falls back to :default-weight
+     :fixed-pitch-family nil
+     :fixed-pitch-weight nil
+     :fixed-pitch-slant nil
      :fixed-pitch-height 1.0
 
-     :fixed-pitch-serif-family nil ; falls back to :default-family
-     :fixed-pitch-serif-weight nil ; falls back to :default-weight
+     :fixed-pitch-serif-family nil
+     :fixed-pitch-serif-weight nil
+     :fixed-pitch-serif-slant nil
      :fixed-pitch-serif-height 1.0
 
      :variable-pitch-family "Sans"
      :variable-pitch-weight nil
+     :variable-pitch-slant nil
      :variable-pitch-height 1.0
 
-     :mode-line-active-family nil ; falls back to :default-family
-     :mode-line-active-weight nil ; falls back to :default-weight
+     :mode-line-active-family nil
+     :mode-line-active-weight nil
+     :mode-line-active-slant nil
      :mode-line-active-height 1.0
 
-     :mode-line-inactive-family nil ; falls back to :default-family
-     :mode-line-inactive-weight nil ; falls back to :default-weight
+     :mode-line-inactive-family nil
+     :mode-line-inactive-weight nil
+     :mode-line-inactive-slant nil
      :mode-line-inactive-height 1.0
 
-     :header-line-family nil ; falls back to :default-family
-     :header-line-weight nil ; falls back to :default-weight
+     :header-line-family nil
+     :header-line-weight nil
+     :header-line-slant nil
      :header-line-height 1.0
 
-     :line-number-family nil ; falls back to :default-family
-     :line-number-weight nil ; falls back to :default-weight
+     :line-number-family nil
+     :line-number-weight nil
+     :line-number-slant nil
      :line-number-height 1.0
 
-     :tab-bar-family nil ; falls back to :default-family
-     :tab-bar-weight nil ; falls back to :default-weight
+     :tab-bar-family nil
+     :tab-bar-weight nil
+     :tab-bar-slant nil
      :tab-bar-height 1.0
 
-     :tab-line-family nil ; falls back to :default-family
-     :tab-line-weight nil ; falls back to :default-weight
+     :tab-line-family nil
+     :tab-line-weight nil
+     :tab-line-slant nil
      :tab-line-height 1.0
 
-     :bold-family nil ; use whatever the underlying face has
+     :bold-family nil
+     :bold-slant nil
      :bold-weight bold
+     :bold-height 1.0
+
      :italic-family nil
+     :italic-weight nil
      :italic-slant italic
+     :italic-height 1.0
+
      :line-spacing nil))
-  "Alist of desired typographic properties.
+  "DEV NOTE 2024-02-21 13:00 +0200: Must be updated to describe new options.
+
+Alist of desired typographic properties.
 
 The car of each cell is an arbitrary symbol that identifies
 and/or describes the set of properties (e.g. small, reading).
@@ -263,72 +301,20 @@ Caveats or further notes:
                   ((const :tag "Default weight" :default-weight) ,fontaine--weights-widget)
                   ((const :tag "Default height" :default-height) natnum)
 
-                  ((const :tag "Fixed pitch font family" :fixed-pitch-family) string)
-                  ((const :tag "Fixed pitch regular weight" :fixed-pitch-weight) ,fontaine--weights-widget)
-                  ((const :tag "Fixed pitch height" :fixed-pitch-height) float)
-
-                  ((const :tag "Fixed pitch serif font family" :fixed-pitch-serif-family) string)
-                  ((const :tag "Fixed pitch serif regular weight" :fixed-pitch-serif-weight) ,fontaine--weights-widget)
-                  ((const :tag "Fixed pitch serif height" :fixed-pitch-serif-height) float)
-
-                  ((const :tag "Variable pitch font family" :variable-pitch-family) string)
-                  ((const :tag "Variable pitch regular weight" :variable-pitch-weight) ,fontaine--weights-widget)
-                  ((const :tag "Variable pitch height" :variable-pitch-height) float)
-
-                  ((const :tag "Active mode line font family" :mode-line-active-family) string)
-                  ((const :tag "Active mode line regular weight" :mode-line-active-weight) ,fontaine--weights-widget)
-                  ((const :tag "Active mode line height" :mode-line-active-height) float)
-
-                  ((const :tag "Inactive mode line font family" :mode-line-inactive-family) string)
-                  ((const :tag "Inactive mode line regular weight" :mode-line-inactive-weight) ,fontaine--weights-widget)
-                  ((const :tag "Inactive mode line height" :mode-line-inactive-height) float)
-
-                  ((const :tag "Header line font family" :header-line-family) string)
-                  ((const :tag "Header line regular weight" :header-line-weight) ,fontaine--weights-widget)
-                  ((const :tag "Header line height" :header-line-height) float)
-
-                  ((const :tag "Line number font family" :line-number-family) string)
-                  ((const :tag "Line number regular weight" :line-number-weight) ,fontaine--weights-widget)
-                  ((const :tag "Line number height" :line-number-height) float)
-
-                  ((const :tag "Tab bar font family" :tab-bar-family) string)
-                  ((const :tag "Tab bar regular weight" :tab-bar-weight) ,fontaine--weights-widget)
-                  ((const :tag "Tab bar height" :tab-bar-height) float)
-
-                  ((const :tag "Tab line font family" :tab-line-family) string)
-                  ((const :tag "Tab line regular weight" :tab-line-weight) ,fontaine--weights-widget)
-                  ((const :tag "Tab line height" :tab-line-height) float)
-
-                  ((const :tag "Font family of the `bold' face" :bold-family) string)
-                  ((const :tag "Weight for the `bold' face" :bold-weight) ,fontaine--weights-widget)
-
-                  ((const :tag "Font family of the `italic' face" :italic-family) string)
-                  ((const :tag "Slant for the `italic' face" :italic-slant)
-                   (choice
-                    (const italic)
-                    (const oblique)
-                    (const normal)
-                    (const reverse-italic)
-                    (const reverse-oblique)))
+                  ,@(mapcan
+                     (lambda (face)
+                       (fontaine--get-face-widget face))
+                     (delq 'default fontaine-faces))
 
                   ((const :tag "Line spacing" :line-spacing) ,(get 'line-spacing 'custom-type))
-                  ;; FIXME 2023-01-19: Adding the (choice
-                  ;; ,@(fontaine--inheritable-presets-widget)) instead
-                  ;; of `symbol' does not have the desired effect
-                  ;; because it does not re-read `fontaine-presets'.
-                  ((const :tag "Inherit another preset" :inherit) symbol)))
-          :key-type symbol)
+                  ((const :tag "Inherit another preset" :inherit) symbol
+                   ;; FIXME 2024-02-21: Is this correct?  It does not seem to work...
+                   :match (lambda (_widget value)
+                            (memq value (delq t (mapcar #'car fontaine-presets))))))
+          :key-type symbol))
   :package-version '(fontaine . "1.1.0")
   :group 'fontaine
   :link '(info-link "(fontaine) Shared and implicit fallback values for presets"))
-
-;; ;; See FIXME above in `fontaine-presets' :type.
-;; ;;
-;; (defun fontaine--inheritable-presets-widget ()
-;;   "Return widget with choice among named presets."
-;;   (mapcar (lambda (s)
-;;             (list 'const s))
-;;           (delq t (mapcar #'car fontaine-presets))))
 
 (defcustom fontaine-latest-state-file
   (locate-user-emacs-file "fontaine-latest-state.eld")
@@ -396,46 +382,23 @@ combine the other two lists."
 
 (defun fontaine--set-face-attributes (face family &optional weight slant height frame)
   "Set FACE font to FAMILY, with optional WEIGHT, SLANT, HEIGHT, FRAME."
-  (let ((family (cond
-                 ((and (eq face 'variable-pitch)
-                       (or (eq family 'unspecified)
-                           (null family)))
-                  "Sans")
-                 (family family)
-                 (t "Monospace")))
-        (height (cond
-                 ((and (eq face 'default)
-                       (or (eq height 'unspecified)
-                           (null height)))
-                  100)
-                 (height height)
-                 (t 1.0)))
-        (weight (cond
-                 ((and (eq face 'bold)
-                       (or (eq weight 'unspecified)
-                           (null weight)))
-                  'bold)
-                 (weight weight)
-                 (t 'normal)))
-        (slant (cond
-                 ((and (eq face 'italic)
-                       (or (eq slant 'unspecified)
-                           (null slant)))
-                  'italic)
-                 (slant slant)
-                 (t 'normal)))
-        (frames (fontaine--frame frame)))
+  (let ((frames (fontaine--frame frame)))
     ;; ;; Read this: <https://debbugs.gnu.org/cgi/bugreport.cgi?bug=45920>
     ;; ;; Hence why the following fails.  Keeping it for posterity...
     ;; (set-face-attribute face nil :family family :weight weight :height height)
-    (if (eq (face-attribute face :weight) weight)
-        (internal-set-lisp-face-attribute face :family family frames)
-      (internal-set-lisp-face-attribute face :weight weight frames)
-      (internal-set-lisp-face-attribute face :slant slant frames)
-      (internal-set-lisp-face-attribute face :family family frames)
-      (internal-set-lisp-face-attribute face :weight weight frames)
+    (when (and (symbolp weight)
+               (not (null weight))
+               (eq (face-attribute face :weight) weight)
+               (stringp family))
+      (internal-set-lisp-face-attribute face :family family frames))
+    (when (and (symbolp weight) (not (null weight)))
+      (internal-set-lisp-face-attribute face :weight weight frames))
+    (when (and (symbolp slant) (not (null slant)))
       (internal-set-lisp-face-attribute face :slant slant frames))
-    (internal-set-lisp-face-attribute face :height height frames)))
+    (when (stringp family)
+      (internal-set-lisp-face-attribute face :family family frames))
+    (when (and (numberp height) (not (zerop height)))
+      (internal-set-lisp-face-attribute face :height height frames))))
 
 ;;;; Apply preset configurations
 
@@ -446,8 +409,8 @@ combine the other two lists."
 
 (defun fontaine--get-inherit-name (preset)
   "Get the `:inherit' value of PRESET."
-  (when-let* ((inherit (plist-get (alist-get preset fontaine-presets) :inherit))
-              (fontaine--preset-p inherit))
+  (when-let ((inherit (plist-get (alist-get preset fontaine-presets) :inherit))
+             (fontaine--preset-p inherit))
     inherit))
 
 (defun fontaine--get-preset-properties (preset)
@@ -468,9 +431,10 @@ If FRAME is nil, apply the effect to all frames."
   (let ((properties (fontaine--get-preset-properties preset)))
     (fontaine--set-face-attributes
      face
-     (or (plist-get properties (intern (format ":%s-family" face))) 'unspecified)
-     (or (plist-get properties (intern (format ":%s-weight" face))) 'unspecified)
-     (or (plist-get properties (intern (format ":%s-height" face))) 'unspecified)
+     (plist-get properties (intern (format ":%s-family" face)))
+     (plist-get properties (intern (format ":%s-weight" face)))
+     (plist-get properties (intern (format ":%s-slant" face)))
+     (plist-get properties (intern (format ":%s-height" face)))
      frame)))
 
 (defun fontaine--set-faces (preset frame)
@@ -561,7 +525,7 @@ Protesilaos).  Alternatively, Emacs 29 provides the special
 which this function ignores"
   (interactive)
   (if-let ((current fontaine-current-preset)
-           ((alist-get current fontaine-presets)))
+           ((fontaine--preset-p current)))
       (fontaine-set-preset current)
     (user-error "The `fontaine-current-preset' is not among `fontaine-presets'")))
 
@@ -590,8 +554,8 @@ Can be assigned to `kill-emacs-hook'."
 (defun fontaine-restore-latest-preset ()
   "Restore latest preset set by `fontaine-set-preset'.
 The value is stored in `fontaine-latest-state-file'."
-  (when-let* ((file fontaine-latest-state-file)
-              ((file-exists-p file)))
+  (when-let ((file fontaine-latest-state-file)
+             ((file-exists-p file)))
     (setq fontaine-recovered-preset
           (unless (zerop
                    (or (file-attribute-size (file-attributes file))
