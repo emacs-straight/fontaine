@@ -41,12 +41,12 @@
   "Set font configurations using presets."
   :group 'font)
 
-(defvar fontaine-font-weights
+(defvar fontaine-weights
   '( thin ultralight extralight light semilight regular medium
      semibold bold heavy extrabold ultrabold)
   "List of font weights.")
 
-(defvar fontaine-font-slants
+(defvar fontaine-slants
   '(normal italic oblique reverse-italic reverse-oblique)
   "List of font slants.")
 
@@ -164,9 +164,7 @@
      :italic-height 1.0
 
      :line-spacing nil))
-  "DEV NOTE 2024-02-21 13:00 +0200: Must be updated to describe new options.
-
-Alist of desired typographic properties.
+  "Alist of desired typographic properties.
 
 The car of each cell is an arbitrary symbol that identifies
 and/or describes the set of properties (e.g. small, reading).
@@ -179,80 +177,29 @@ that change from the default.  See the default value of this
 variable for how that is done.
 
 The cdr is a plist that specifies the typographic properties of
-the faces `default', `fixed-pitch', `variable-pitch', `bold', and
-`italic'.  It also covers the `line-spacing' variable.
+the faces listed in `fontaine-faces'.  It also covers the
+`line-spacing' variable.
 
-The properties in detail:
+For each face, Fontaine reads keywords that describe its font
+family, font weight, font slant, and font height.  The name of
+those keywords is composed from the name of the face plus th
+specifier.  For example, with the `default' face, we have
+`:default-family', `:default-height', `:default-weight', and
+`:default-slant'.
 
-- `:default-family' is the family of the `default' face.  If not
-  specified, it falls back to Monospace.
+The properties in more detail:
 
-- `:default-weight' is the weight of the `default' face.  The
-  fallback value is `normal'.  Available weights are `normal' or
-  `regular', `thin', `ultralight', `extralight', `light',
-  `semilight', `medium', `semibold', `extrabold', `ultrabold' and
-  must be supported by the underlying typeface.
+- The font family is a string that refers to the name of the
+  font.
 
-- `:default-height' is the height of the `default' face.  The
-  fallback value is 100 (the height is 10x the point size).
+- The font weight is an unquoted symbol among `fontaine-weights'.
 
-- `:fixed-pitch-family', `:fixed-pitch-weight',
-  `:fixed-pitch-height' apply to the `fixed-pitch' face.  Their
-  fallback values are `:default-family', `:default-weight', and
-  1.0, respectively.
+- The font slant is an unquoted symbol among `fontaine-slants'.
 
-- `:fixed-pitch-serif-family', `:fixed-pitch-serif-weight',
-  `:fixed-pitch-serif-height' apply to the `fixed-pitch-serif'
-  face.  Their fallback values are `:default-family',
-  `:default-weight', and 1.0, respectively.
-
-- The `:variable-pitch-family', `:variable-pitch-weight', and
-  `:variable-pitch-height' apply to the `variable-pitch' face.
-  They all fall back to the respective default values, as
-  described above.
-
-- The `:mode-line-active-family', `:mode-line-active-weight', and
-  `:mode-line-active-height' apply to the `mode-line' and
-  `mode-line-active' faces.  They all fall back to the respective
-  default values, as described above.
-
-- The `:mode-line-inactive-family', `:mode-line-inactive-weight',
-  and `:mode-line-inactive-height' apply to the
-  `mode-line-inactive' face.  They all fall back to the
-  respective default values, as described above.
-
-- The `:header-line-family', `:header-line-weight', and
-  `:header-line-height' apply to the `header-line' face.  They
-  all fall back to the respective default values, as described
-  above.
-
-- The `:line-number-family', `:line-number-weight', and
-  `:line-number-height' apply to the `line-number' face.  They
-  all fall back to the respective default values, as described
-  above.
-
-- The `:tab-bar-family', `:tab-bar-weight', and `:tab-bar-height'
-  apply to the `tab-bar' face.  They all fall back to the
-  respective default values, as described above.
-
-- The `:tab-line-family', `:tab-line-weight', and
-  `:tab-line-height' apply to the `tab-line' face.  They all fall
-  back to the respective default values, as described above.
-
-- The `:bold-family' and `:italic-family' are the font families
-  of the `bold' and `italic' faces, respectively.  Only set them
-  if you want to override that of the underlying face.
-
-- The `:bold-weight' specifies the weight of the `bold' face.
-  Its fallback value is bold, meaning the weight, not the face.
-  For more, refer to the value of `fontaine-font-weights'.  The
-  font family must support the given weight.
-
-- The `:italic-slant' specifies the slant of the `italic' face.
-  Its fallback value is italic, in reference to the slant, not
-  the face.  Acceptable values are those included in the value of
-  `fontaine-font-slants' and must be supported by the underlying
-  typeface
+- The font height is a floating point (like 1.0) which is
+  interpreted as a multiple of the default font height.  An
+  exception to this is for the `default' face (i.e. the
+  `:default-height'), which needs to be a natural number.
 
 - The `:line-spacing' specifies the value of the `line-spacing'
   variable.
@@ -283,13 +230,8 @@ Caveats or further notes:
 - All the properties for `bold' and `italic' will only have a
   noticeable effect if the active theme does not hardcode a
   weight and a slant, but instead inherits the relevant
-  face (such as the `modus-themes').
-
-- A height attribute for anything other than the `default' face
-  must be set to a floating point, which is understood as a
-  multiple of the default height (this allows all faces to scale
-  harmoniously).  The `:default-height' always is a natural
-  number.
+  face (such as the `modus-themes', `ef-themes',
+  `standard-themes').
 
 - Fontaine does not [yet] support Emacs' fontsets for other
   scripts or character sets (e.g. Emoji).  Read the documentation
@@ -311,7 +253,7 @@ Caveats or further notes:
                    ;; FIXME 2024-02-21: Is this correct?  It does not seem to work...
                    :match (lambda (_widget value)
                             (memq value (delq t (mapcar #'car fontaine-presets))))))
-          :key-type symbol))
+                 :key-type symbol))
   :package-version '(fontaine . "1.1.0")
   :group 'fontaine
   :link '(info-link "(fontaine) Shared and implicit fallback values for presets"))
@@ -404,7 +346,7 @@ combine the other two lists."
 
 (defun fontaine--preset-p (preset)
   "Return non-nil if PRESET is one of the named `fontaine-presets'."
-  (let ((presets (delq t (mapcar #'car fontaine-presets))))
+  (let ((presets (mapcar #'car fontaine-presets)))
     (memq preset presets)))
 
 (defun fontaine--get-inherit-name (preset)
@@ -538,14 +480,16 @@ which this function ignores"
 (defun fontaine-store-latest-preset ()
   "Write latest cursor state to `fontaine-latest-state-file'.
 Can be assigned to `kill-emacs-hook'."
-  (when-let ((hist fontaine--preset-history))
+  (when-let ((hist fontaine--preset-history)
+             (latest (car hist))
+             ((not (member latest '("nil" "t")))))
     (with-temp-file fontaine-latest-state-file
       (insert ";; Auto-generated file; don't edit -*- mode: "
               (if (<= 28 emacs-major-version)
                   "lisp-data"
                 "emacs-lisp")
               " -*-\n")
-      (pp (intern (car hist)) (current-buffer)))))
+      (pp (intern latest) (current-buffer)))))
 
 (defvar fontaine-recovered-preset nil
   "Recovered value of latest store cursor preset.")
@@ -563,6 +507,34 @@ The value is stored in `fontaine-latest-state-file'."
             (with-temp-buffer
               (insert-file-contents file)
               (read (current-buffer)))))))
+
+;; ;; Recover last preset or fall back to desired style from
+;; ;; `fontaine-presets'.
+;; (fontaine-set-preset (or (fontaine-restore-latest-preset) 'regular))
+;; 
+;; ;; The other side of `fontaine-restore-latest-preset'.
+;; (add-hook 'kill-emacs-hook #'fontaine-store-latest-preset)
+
+;;;###autoload
+(define-minor-mode fontaine-mode
+  "Persist Fontaine presets.
+Arrange to store and restore the current Fontaine preset when
+closing and restarting Emacs.  Also, do it for theme switching,
+if the Emacs version is 29 or higher.
+
+[ Note that in older versions of Emacs we do not have a hook that
+  is called at the post-theme-load phase.  Users can do this by
+  installing an advice.  Read the Info node `(fontaine)
+  Theme-agnostic hook before Emacs 29'.  ]"
+  :global t
+  (if fontaine-mode
+      (progn
+        (add-hook 'kill-emacs-hook #'fontaine-store-latest-preset)
+        (add-hook 'fontaine-set-preset-hook #'fontaine-store-latest-preset)
+        (add-hook 'enable-theme-functions #'fontaine-apply-current-preset))
+    (remove-hook 'kill-emacs-hook #'fontaine-store-latest-preset)
+    (remove-hook 'fontaine-set-preset-hook #'fontaine-store-latest-preset)
+    (remove-hook 'enable-theme-functions #'fontaine-apply-current-preset)))
 
 (provide 'fontaine)
 ;;; fontaine.el ends here
