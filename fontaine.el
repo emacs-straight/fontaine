@@ -5,8 +5,8 @@
 ;; Author: Protesilaos Stavrou <info@protesilaos.com>
 ;; Maintainer: Protesilaos Stavrou <info@protesilaos.com>
 ;; URL: https://github.com/protesilaos/fontaine
-;; Version: 1.0.0
-;; Package-Requires: ((emacs "27.1"))
+;; Version: 2.0.0
+;; Package-Requires: ((emacs "29.1"))
 
 ;; This file is NOT part of GNU Emacs.
 
@@ -79,7 +79,7 @@
 
 (defconst fontaine-faces
   '( default fixed-pitch fixed-pitch-serif variable-pitch
-     mode-line-active mode-line-inactive
+     mode-line-active mode-line-inactive header-line
      line-number tab-bar tab-line
      bold italic)
   "List of faces with relevant font attributes.")
@@ -254,7 +254,7 @@ Caveats or further notes:
                    :match (lambda (_widget value)
                             (memq value (delq t (mapcar #'car fontaine-presets))))))
                  :key-type symbol))
-  :package-version '(fontaine . "1.1.0")
+  :package-version '(fontaine . "2.0.0")
   :group 'fontaine
   :link '(info-link "(fontaine) Shared and implicit fallback values for presets"))
 
@@ -270,12 +270,12 @@ This is then used to restore the last value with the function
   :package-version '(fontaine . "0.1.0")
   :group 'fontaine)
 
-(make-obsolete-variable 'fontaine-font-families nil "1.1.0")
+(make-obsolete-variable 'fontaine-font-families nil "2.0.0")
 
 (defcustom fontaine-set-preset-hook nil
   "Hook that runs after setting fonts with `fontaine-set-preset'."
   :type 'hook
-  :package-version '(fontaine . "1.1.0")
+  :package-version '(fontaine . "2.0.0")
   :group 'fontaine)
 
 ;;;; General utilities
