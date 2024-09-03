@@ -5,7 +5,7 @@
 ;; Author: Protesilaos Stavrou <info@protesilaos.com>
 ;; Maintainer: Protesilaos Stavrou <info@protesilaos.com>
 ;; URL: https://github.com/protesilaos/fontaine
-;; Version: 2.0.0
+;; Version: 2.1.0
 ;; Package-Requires: ((emacs "29.1"))
 
 ;; This file is NOT part of GNU Emacs.
@@ -137,61 +137,73 @@
      :default-family "Monospace"
      :default-weight regular
      :default-slant normal
+     :default-width normal
      :default-height 100
 
      :fixed-pitch-family nil
      :fixed-pitch-weight nil
      :fixed-pitch-slant nil
+     :fixed-pitch-width nil
      :fixed-pitch-height 1.0
 
      :fixed-pitch-serif-family nil
      :fixed-pitch-serif-weight nil
      :fixed-pitch-serif-slant nil
+     :fixed-pitch-serif-width nil
      :fixed-pitch-serif-height 1.0
 
      :variable-pitch-family "Sans"
      :variable-pitch-weight nil
      :variable-pitch-slant nil
+     :variable-pitch-width nil
      :variable-pitch-height 1.0
 
      :mode-line-active-family nil
      :mode-line-active-weight nil
      :mode-line-active-slant nil
+     :mode-line-active-width nil
      :mode-line-active-height 1.0
 
      :mode-line-inactive-family nil
      :mode-line-inactive-weight nil
      :mode-line-inactive-slant nil
+     :mode-line-inactive-width nil
      :mode-line-inactive-height 1.0
 
      :header-line-family nil
      :header-line-weight nil
      :header-line-slant nil
+     :header-line-width nil
      :header-line-height 1.0
 
      :line-number-family nil
      :line-number-weight nil
      :line-number-slant nil
+     :line-number-width nil
      :line-number-height 1.0
 
      :tab-bar-family nil
      :tab-bar-weight nil
      :tab-bar-slant nil
+     :tab-bar-width nil
      :tab-bar-height 1.0
 
      :tab-line-family nil
      :tab-line-weight nil
      :tab-line-slant nil
+     :tab-line-width nil
      :tab-line-height 1.0
 
      :bold-family nil
      :bold-slant nil
      :bold-weight bold
+     :bold-width nil
      :bold-height 1.0
 
      :italic-family nil
      :italic-weight nil
      :italic-slant italic
+     :italic-width nil
      :italic-height 1.0
 
      :line-spacing nil))
@@ -402,22 +414,46 @@ If FRAME is nil, apply the effect to all frames."
                symbol))
            fontaine-presets)))
 
-(defun fontaine--set-fonts-prompt ()
-  "Prompt for font set (used by `fontaine-set-fonts')."
-  (let* ((def (nth 1 fontaine--font-display-hist))
-         (prompt (if def
-                     (format "Apply font configurations from PRESET [%s]: " def)
-                   "Apply font configurations from PRESET: ")))
-    (intern
-     (completing-read
-      prompt
-      (fontaine--presets-no-fallback)
-      nil t nil 'fontaine--font-display-hist def))))
+(defun fontaine--get-preset-symbols ()
+  "Return list of the `car' of each element in `fontain-presets'."
+  (delq nil
+        (mapcar
+         (lambda (element)
+           (when-let ((first (car element))
+                      (_ (not (eq first t))))
+             first))
+         fontaine-presets)))
 
 (defvar fontaine-current-preset nil
   "Current font set in `fontaine-presets'.
 This is the preset last used by `fontaine-set-preset'.  Also see
 the command `fontaine-apply-current-preset'.")
+
+(defun fontaine--get-first-non-current-preset (history)
+  "Return the first element of HISTORY which is not `fontaine-current-preset'.
+Only consider elements that are still part of the `fontaine-presets',
+per `fontaine--get-preset-symbols'."
+  (catch 'first
+    (dolist (element history)
+      (when (stringp element)
+        (setq element (intern element)))
+      (when (and (not (eq element fontaine-current-preset))
+                 (member element (fontaine--get-preset-symbols)))
+        (throw 'first element)))))
+
+(defun fontaine--set-fonts-prompt (&optional prompt)
+  "Prompt for font set (used by `fontaine-set-fonts').
+If optional PROMPT string, use it for the prompt, else use one that asks
+for a preset among `fontaine-presets'."
+  (let* ((def (symbol-name (fontaine--get-first-non-current-preset fontaine--font-display-hist)))
+         (prompt (if prompt
+                     (format-prompt prompt nil)
+                   (format-prompt "Apply font configurations from PRESET" def))))
+    (intern
+     (completing-read
+      prompt
+      (fontaine--presets-no-fallback)
+      nil t nil 'fontaine--font-display-hist def))))
 
 ;;;###autoload
 (defun fontaine-set-preset (preset &optional frame)
@@ -473,6 +509,19 @@ which this function ignores"
            ((fontaine--preset-p current)))
       (fontaine-set-preset current)
     (user-error "The `fontaine-current-preset' is not among `fontaine-presets'")))
+
+;;;###autoload
+(defun fontaine-toggle-preset ()
+  "Toggle between the last two known Fontaine presets.
+These are the presets that were set with `fontaine-set-preset'.  If
+there are no two selected presets, then prompt the user to set a preset.
+
+As a final step, call the `fontaine-set-preset-hook'."
+  (interactive)
+  (fontaine-set-preset
+   (if-let ((previous (fontaine--get-first-non-current-preset fontaine--font-display-hist)))
+       previous
+     (fontaine--set-fonts-prompt "No previous preset to toggle; select PRESET"))))
 
 ;;;; Store and restore preset
 

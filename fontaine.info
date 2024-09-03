@@ -1,4 +1,4 @@
-This is docvamML9.info, produced by makeinfo version 6.8 from
+This is docq3niRT.info, produced by makeinfo version 6.8 from
 fontaine.texi.
 
 Copyright (C) 2022-2023 Free Software Foundation, Inc.
@@ -20,7 +20,7 @@ START-INFO-DIR-ENTRY
 END-INFO-DIR-ENTRY
 
 
-File: docvamML9.info,  Node: Top,  Next: Overview,  Up: (dir)
+File: docq3niRT.info,  Node: Top,  Next: Overview,  Up: (dir)
 
 fontaine.el: Set font configurations using presets
 **************************************************
@@ -43,11 +43,11 @@ customization options for ‘fontaine’ (or ‘fontaine.el’), and provides
 every other piece of information pertinent to it.
 
    The documentation furnished herein corresponds to stable version
-2.0.0, released on 2024-04-16.  Any reference to a newer feature which
+2.1.0, released on 2024-09-02.  Any reference to a newer feature which
 does not yet form part of the latest tagged commit, is explicitly marked
 as such.
 
-   Current development target is 2.0.0-dev.
+   Current development target is 2.2.0-dev.
 
    • Package name (GNU ELPA): ‘fontaine’
    • Official manual: <https://protesilaos.com/emacs/fontaine>
@@ -94,15 +94,12 @@ Indices
 
 
 
-File: docvamML9.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
+File: docq3niRT.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
 
 1 Overview
 **********
 
-[ As part of 2.0.0-dev, the ‘fontaine-presets’ also support a width
-attribute.  ]
-
-   Fontaine lets the user specify presets of font configurations and set
+Fontaine lets the user specify presets of font configurations and set
 them on demand on graphical Emacs frames.  The user option
 ‘fontaine-presets’ holds all such presets.
 
@@ -121,61 +118,73 @@ property list.  It looks like this (check the default value of
       :default-family "Monospace"
       :default-weight regular
       :default-slant normal
+      :default-width normal
       :default-height 100
 
       :fixed-pitch-family nil
       :fixed-pitch-weight nil
       :fixed-pitch-slant nil
+      :fixed-pitch-width nil
       :fixed-pitch-height 1.0
 
       :fixed-pitch-serif-family nil
       :fixed-pitch-serif-weight nil
       :fixed-pitch-serif-slant nil
+      :fixed-pitch-serif-width nil
       :fixed-pitch-serif-height 1.0
 
       :variable-pitch-family "Sans"
       :variable-pitch-weight nil
       :variable-pitch-slant nil
+      :variable-pitch-width nil
       :variable-pitch-height 1.0
 
       :mode-line-active-family nil
       :mode-line-active-weight nil
       :mode-line-active-slant nil
+      :mode-line-active-width nil
       :mode-line-active-height 1.0
 
       :mode-line-inactive-family nil
       :mode-line-inactive-weight nil
       :mode-line-inactive-slant nil
+      :mode-line-inactive-width nil
       :mode-line-inactive-height 1.0
 
       :header-line-family nil
       :header-line-weight nil
       :header-line-slant nil
+      :header-line-width nil
       :header-line-height 1.0
 
       :line-number-family nil
       :line-number-weight nil
       :line-number-slant nil
+      :line-number-width nil
       :line-number-height 1.0
 
       :tab-bar-family nil
       :tab-bar-weight nil
       :tab-bar-slant nil
+      :tab-bar-width nil
       :tab-bar-height 1.0
 
       :tab-line-family nil
       :tab-line-weight nil
       :tab-line-slant nil
+      :tab-line-width nil
       :tab-line-height 1.0
 
       :bold-family nil
       :bold-slant nil
       :bold-weight bold
+      :bold-width nil
       :bold-height 1.0
 
       :italic-family nil
       :italic-weight nil
       :italic-slant italic
+      :italic-width nil
       :italic-height 1.0
 
       :line-spacing nil)
@@ -225,6 +234,11 @@ the ‘.emacs.d’ directory).  Saving is done by the function
 function ‘fontaine-restore-latest-preset’ (such as by adding it to their
 init file).
 
+   The command ‘fontaine-toggle-preset’ can toggle between the last two
+valid presets, as set by ‘fontaine-set-preset’.  If it cannot find two
+different presets, then it prompts using minibuffer completion.  As a
+final step, it calls the ‘fontaine-set-preset-hook’.
+
    For users of the ‘no-littering’ package, ‘fontaine-latest-state-file’
 is not stored in their ‘.emacs.d’, but in a standard directory instead:
 <https://github.com/emacscollective/no-littering>.
@@ -240,7 +254,7 @@ Are Irrelevant in Non-graphical Emacs (because that is actually true).
 * Inherit the properties of another named preset::
 
 
-File: docvamML9.info,  Node: Shared and implicit fallback values for presets,  Next: Inherit the properties of another named preset,  Up: Overview
+File: docq3niRT.info,  Node: Shared and implicit fallback values for presets,  Next: Inherit the properties of another named preset,  Up: Overview
 
 1.1 Shared and implicit fallback values for presets
 ===================================================
@@ -474,7 +488,7 @@ they intend to change their values).  We then have this transformation:
               :variable-pitch-height 1.05)))
 
 
-File: docvamML9.info,  Node: Inherit the properties of another named preset,  Prev: Shared and implicit fallback values for presets,  Up: Overview
+File: docq3niRT.info,  Node: Inherit the properties of another named preset,  Prev: Shared and implicit fallback values for presets,  Up: Overview
 
 1.2 Inherit the properties of another named preset
 ==================================================
@@ -527,7 +541,7 @@ inheritance.  If there is a compelling need for it, we can add it in
 future versions.
 
 
-File: docvamML9.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
+File: docq3niRT.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
 
 2 Installation
 **************
@@ -538,7 +552,7 @@ File: docvamML9.info,  Node: Installation,  Next: Sample configuration,  Prev: O
 * Manual installation::
 
 
-File: docvamML9.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
+File: docq3niRT.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
 
 2.1 GNU ELPA package
 ====================
@@ -557,7 +571,7 @@ archive.  Read:
 <https://protesilaos.com/codelog/2022-05-13-emacs-elpa-devel/>.
 
 
-File: docvamML9.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
+File: docq3niRT.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
 
 2.2 Manual installation
 =======================
@@ -584,7 +598,7 @@ following commands in a shell prompt:
    Everything is in place to set up the package.
 
 
-File: docvamML9.info,  Node: Sample configuration,  Next: Acknowledgements,  Prev: Installation,  Up: Top
+File: docq3niRT.info,  Node: Sample configuration,  Next: Acknowledgements,  Prev: Installation,  Up: Top
 
 3 Sample configuration
 **********************
@@ -688,7 +702,7 @@ Remember to read the relevant doc strings.
 * Theme-agnostic hook before Emacs 29::
 
 
-File: docvamML9.info,  Node: Persist font configurations on theme switch,  Next: Theme-agnostic hook for Emacs 29 or higher,  Up: Sample configuration
+File: docq3niRT.info,  Node: Persist font configurations on theme switch,  Next: Theme-agnostic hook for Emacs 29 or higher,  Up: Sample configuration
 
 3.1 Persist font configurations on theme switch
 ===============================================
@@ -711,7 +725,7 @@ hook that is ran at the post ‘load-theme’ phase.
    • *note Theme-agnostic hook before Emacs 29::
 
 
-File: docvamML9.info,  Node: Theme-agnostic hook for Emacs 29 or higher,  Next: Theme-agnostic hook before Emacs 29,  Prev: Persist font configurations on theme switch,  Up: Sample configuration
+File: docq3niRT.info,  Node: Theme-agnostic hook for Emacs 29 or higher,  Next: Theme-agnostic hook before Emacs 29,  Prev: Persist font configurations on theme switch,  Up: Sample configuration
 
 3.2 Theme-agnostic hook for Emacs 29 or higher
 ==============================================
@@ -726,7 +740,7 @@ on theme switch::):
      (add-hook 'enable-theme-functions #'fontaine-apply-current-preset)
 
 
-File: docvamML9.info,  Node: Theme-agnostic hook before Emacs 29,  Prev: Theme-agnostic hook for Emacs 29 or higher,  Up: Sample configuration
+File: docq3niRT.info,  Node: Theme-agnostic hook before Emacs 29,  Prev: Theme-agnostic hook for Emacs 29 or higher,  Up: Sample configuration
 
 3.3 Theme-agnostic hook before Emacs 29
 =======================================
@@ -757,7 +771,7 @@ generic way:
      (add-hook 'after-enable-theme-hook #'fontaine-apply-current-preset)
 
 
-File: docvamML9.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Sample configuration,  Up: Top
+File: docq3niRT.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Sample configuration,  Up: Top
 
 4 Acknowledgements
 ******************
@@ -775,7 +789,7 @@ Ideas and user feedback
      Adam Porter (alphapapa), Ashlin Eldridge, Joe Higton, Ted Reed.
 
 
-File: docvamML9.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
+File: docq3niRT.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
 
 Appendix A GNU Free Documentation License
 *****************************************
@@ -1257,7 +1271,7 @@ software license, such as the GNU General Public License, to permit
 their use in free software.
 
 
-File: docvamML9.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
+File: docq3niRT.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
 
 B Indices
 *********
@@ -1269,7 +1283,7 @@ B Indices
 * Concept index::
 
 
-File: docvamML9.info,  Node: Function index,  Next: Variable index,  Up: Indices
+File: docq3niRT.info,  Node: Function index,  Next: Variable index,  Up: Indices
 
 B.1 Function index
 ==================
@@ -1279,12 +1293,13 @@ B.1 Function index
 
 * fontaine-apply-current-preset:         Persist font configurations on theme switch.
                                                               (line   9)
-* fontaine-restore-latest-preset:        Overview.            (line 124)
-* fontaine-set-preset:                   Overview.            (line 104)
-* fontaine-store-latest-preset:          Overview.            (line 124)
+* fontaine-restore-latest-preset:        Overview.            (line 133)
+* fontaine-set-preset:                   Overview.            (line 113)
+* fontaine-store-latest-preset:          Overview.            (line 133)
+* fontaine-toggle-preset:                Overview.            (line 141)
 
 
-File: docvamML9.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
+File: docq3niRT.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
 
 B.2 Variable index
 ==================
@@ -1294,12 +1309,12 @@ B.2 Variable index
 
 * fontaine-current-preset:               Persist font configurations on theme switch.
                                                               (line   9)
-* fontaine-latest-state-file:            Overview.            (line 124)
-* fontaine-presets:                      Overview.            (line   9)
-* fontaine-set-preset-hook:              Overview.            (line 121)
+* fontaine-latest-state-file:            Overview.            (line 133)
+* fontaine-presets:                      Overview.            (line   6)
+* fontaine-set-preset-hook:              Overview.            (line 130)
 
 
-File: docvamML9.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
+File: docq3niRT.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
 
 B.3 Concept index
 =================
@@ -1318,21 +1333,21 @@ B.3 Concept index
 Tag Table:
 Node: Top847
 Node: Overview3165
-Node: Shared and implicit fallback values for presets8091
-Node: Inherit the properties of another named preset16822
-Node: Installation19273
-Node: GNU ELPA package19460
-Node: Manual installation20023
-Node: Sample configuration20800
-Node: Persist font configurations on theme switch24840
-Node: Theme-agnostic hook for Emacs 29 or higher25890
-Node: Theme-agnostic hook before Emacs 2926526
-Node: Acknowledgements27634
-Node: GNU Free Documentation License28130
-Node: Indices53491
-Node: Function index53667
-Node: Variable index54190
-Node: Concept index54735
+Node: Shared and implicit fallback values for presets8629
+Node: Inherit the properties of another named preset17360
+Node: Installation19811
+Node: GNU ELPA package19998
+Node: Manual installation20561
+Node: Sample configuration21338
+Node: Persist font configurations on theme switch25378
+Node: Theme-agnostic hook for Emacs 29 or higher26428
+Node: Theme-agnostic hook before Emacs 2927064
+Node: Acknowledgements28172
+Node: GNU Free Documentation License28668
+Node: Indices54029
+Node: Function index54205
+Node: Variable index54801
+Node: Concept index55346
 
 End Tag Table
 
