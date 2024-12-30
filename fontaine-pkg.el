@@ -1,2 +1,2 @@
 ;; Generated package description from fontaine.el  -*- no-byte-compile: t -*-
-(define-package "fontaine" "2.1.0.0.20240913.71012" "Set font configurations using presets" '((emacs "29.1")) :commit "e689b0c55e872e64bff47d157cad58854ff0e564" :authors '(("Protesilaos Stavrou" . "info@protesilaos.com")) :maintainer '("Protesilaos Stavrou" . "info@protesilaos.com") :url "https://github.com/protesilaos/fontaine")
+(define-package "fontaine" "2.1.0.0.20241229.72347" "Set font configurations using presets" '((emacs "29.1")) :commit "062fd21af241bd81c5d0daf7015aa9dfa5df6648" :authors '(("Protesilaos Stavrou" . "info@protesilaos.com")) :maintainer '("Protesilaos Stavrou" . "info@protesilaos.com") :url "https://github.com/protesilaos/fontaine")

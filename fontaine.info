@@ -1,4 +1,4 @@
-This is docpWcPlt.info, produced by makeinfo version 6.8 from
+This is docU8fPn4.info, produced by makeinfo version 6.8 from
 fontaine.texi.
 
 Copyright (C) 2022-2023 Free Software Foundation, Inc.
@@ -20,7 +20,7 @@ START-INFO-DIR-ENTRY
 END-INFO-DIR-ENTRY
 
 
-File: docpWcPlt.info,  Node: Top,  Next: Overview,  Up: (dir)
+File: docU8fPn4.info,  Node: Top,  Next: Overview,  Up: (dir)
 
 fontaine.el: Set font configurations using presets
 **************************************************
@@ -94,7 +94,7 @@ Indices
 
 
 
-File: docpWcPlt.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
+File: docU8fPn4.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
 
 1 Overview
 **********
@@ -254,7 +254,7 @@ Are Irrelevant in Non-graphical Emacs (because that is actually true).
 * Inherit the properties of another named preset::
 
 
-File: docpWcPlt.info,  Node: Shared and implicit fallback values for presets,  Next: Inherit the properties of another named preset,  Up: Overview
+File: docU8fPn4.info,  Node: Shared and implicit fallback values for presets,  Next: Inherit the properties of another named preset,  Up: Overview
 
 1.1 Shared and implicit fallback values for presets
 ===================================================
@@ -488,7 +488,7 @@ they intend to change their values).  We then have this transformation:
               :variable-pitch-height 1.05)))
 
 
-File: docpWcPlt.info,  Node: Inherit the properties of another named preset,  Prev: Shared and implicit fallback values for presets,  Up: Overview
+File: docU8fPn4.info,  Node: Inherit the properties of another named preset,  Prev: Shared and implicit fallback values for presets,  Up: Overview
 
 1.2 Inherit the properties of another named preset
 ==================================================
@@ -541,7 +541,7 @@ inheritance.  If there is a compelling need for it, we can add it in
 future versions.
 
 
-File: docpWcPlt.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
+File: docU8fPn4.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
 
 2 Installation
 **************
@@ -552,7 +552,7 @@ File: docpWcPlt.info,  Node: Installation,  Next: Sample configuration,  Prev: O
 * Manual installation::
 
 
-File: docpWcPlt.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
+File: docU8fPn4.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
 
 2.1 GNU ELPA package
 ====================
@@ -571,7 +571,7 @@ archive.  Read:
 <https://protesilaos.com/codelog/2022-05-13-emacs-elpa-devel/>.
 
 
-File: docpWcPlt.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
+File: docU8fPn4.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
 
 2.2 Manual installation
 =======================
@@ -598,7 +598,7 @@ following commands in a shell prompt:
    Everything is in place to set up the package.
 
 
-File: docpWcPlt.info,  Node: Sample configuration,  Next: Acknowledgements,  Prev: Installation,  Up: Top
+File: docU8fPn4.info,  Node: Sample configuration,  Next: Acknowledgements,  Prev: Installation,  Up: Top
 
 3 Sample configuration
 **********************
@@ -702,7 +702,7 @@ Remember to read the relevant doc strings.
 * Theme-agnostic hook before Emacs 29::
 
 
-File: docpWcPlt.info,  Node: Persist font configurations on theme switch,  Next: Theme-agnostic hook for Emacs 29 or higher,  Up: Sample configuration
+File: docU8fPn4.info,  Node: Persist font configurations on theme switch,  Next: Theme-agnostic hook for Emacs 29 or higher,  Up: Sample configuration
 
 3.1 Persist font configurations on theme switch
 ===============================================
@@ -725,7 +725,7 @@ hook that is ran at the post ‘load-theme’ phase.
    • *note Theme-agnostic hook before Emacs 29::
 
 
-File: docpWcPlt.info,  Node: Theme-agnostic hook for Emacs 29 or higher,  Next: Theme-agnostic hook before Emacs 29,  Prev: Persist font configurations on theme switch,  Up: Sample configuration
+File: docU8fPn4.info,  Node: Theme-agnostic hook for Emacs 29 or higher,  Next: Theme-agnostic hook before Emacs 29,  Prev: Persist font configurations on theme switch,  Up: Sample configuration
 
 3.2 Theme-agnostic hook for Emacs 29 or higher
 ==============================================
@@ -740,7 +740,7 @@ on theme switch::):
      (add-hook 'enable-theme-functions #'fontaine-apply-current-preset)
 
 
-File: docpWcPlt.info,  Node: Theme-agnostic hook before Emacs 29,  Prev: Theme-agnostic hook for Emacs 29 or higher,  Up: Sample configuration
+File: docU8fPn4.info,  Node: Theme-agnostic hook before Emacs 29,  Prev: Theme-agnostic hook for Emacs 29 or higher,  Up: Sample configuration
 
 3.3 Theme-agnostic hook before Emacs 29
 =======================================
@@ -771,7 +771,7 @@ generic way:
      (add-hook 'after-enable-theme-hook #'fontaine-apply-current-preset)
 
 
-File: docpWcPlt.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Sample configuration,  Up: Top
+File: docU8fPn4.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Sample configuration,  Up: Top
 
 4 Acknowledgements
 ******************
@@ -782,14 +782,14 @@ Author/maintainer
      Protesilaos Stavrou.
 
 Contributions to the code or manual
-     Christopher League, Eli Zaretskii, Florent Teissier, Terry F.
-     Torrey.
+     Christopher League, Eli Zaretskii, Florent Teissier, Jorge Gomez,
+     Terry F.  Torrey.
 
 Ideas and user feedback
      Adam Porter (alphapapa), Ashlin Eldridge, Joe Higton, Ted Reed.
 
 
-File: docpWcPlt.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
+File: docU8fPn4.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
 
 Appendix A GNU Free Documentation License
 *****************************************
@@ -1271,7 +1271,7 @@ software license, such as the GNU General Public License, to permit
 their use in free software.
 
 
-File: docpWcPlt.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
+File: docU8fPn4.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
 
 B Indices
 *********
@@ -1283,7 +1283,7 @@ B Indices
 * Concept index::
 
 
-File: docpWcPlt.info,  Node: Function index,  Next: Variable index,  Up: Indices
+File: docU8fPn4.info,  Node: Function index,  Next: Variable index,  Up: Indices
 
 B.1 Function index
 ==================
@@ -1299,7 +1299,7 @@ B.1 Function index
 * fontaine-toggle-preset:                Overview.            (line 141)
 
 
-File: docpWcPlt.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
+File: docU8fPn4.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
 
 B.2 Variable index
 ==================
@@ -1314,7 +1314,7 @@ B.2 Variable index
 * fontaine-set-preset-hook:              Overview.            (line 130)
 
 
-File: docpWcPlt.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
+File: docU8fPn4.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
 
 B.3 Concept index
 =================
@@ -1343,11 +1343,11 @@ Node: Persist font configurations on theme switch25378
 Node: Theme-agnostic hook for Emacs 29 or higher26428
 Node: Theme-agnostic hook before Emacs 2927064
 Node: Acknowledgements28172
-Node: GNU Free Documentation License28668
-Node: Indices54029
-Node: Function index54205
-Node: Variable index54801
-Node: Concept index55346
+Node: GNU Free Documentation License28682
+Node: Indices54043
+Node: Function index54219
+Node: Variable index54815
+Node: Concept index55360
 
 End Tag Table
 
