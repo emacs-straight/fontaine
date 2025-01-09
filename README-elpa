@@ -52,7 +52,7 @@ Table of Contents
 1 COPYING
 ═════════
 
-  Copyright (C) 2022-2023 Free Software Foundation, Inc.
+  Copyright (C) 2022-2025 Free Software Foundation, Inc.
 
         Permission is granted to copy, distribute and/or modify
         this document under the terms of the GNU Free
@@ -778,7 +778,8 @@ Table of Contents
         Gomez, Terry F. Torrey.
 
   Ideas and user feedback
-        Adam Porter (alphapapa), Ashlin Eldridge, Joe Higton, Ted Reed.
+        Adam Porter (alphapapa), Ashlin Eldridge, Joe Higton, Haruko,
+        Ted Reed.
 
 
 6 GNU Free Documentation License

@@ -47,7 +47,7 @@ Current development target is {{{development-version}}}.
 :CUSTOM_ID: h:40b18bb2-4dc1-4202-bd0b-6fab535b2a0f
 :END:
 
-Copyright (C) 2022-2023  Free Software Foundation, Inc.
+Copyright (C) 2022-2025  Free Software Foundation, Inc.
 
 #+begin_quote
 Permission is granted to copy, distribute and/or modify this document
@@ -763,7 +763,7 @@ Fontaine is meant to be a collective effort.  Every bit of help matters.
   Zaretskii, Florent Teissier, Jorge Gomez, Terry F. Torrey.
 
 + Ideas and user feedback :: Adam Porter (alphapapa), Ashlin Eldridge,
-  Joe Higton, Ted Reed.
+  Joe Higton, Haruko, Ted Reed.
 
 * GNU Free Documentation License
 :PROPERTIES:
