@@ -1,4 +1,4 @@
-This is docKTl9bI.info, produced by makeinfo version 6.8 from
+This is docwQGvgV.info, produced by makeinfo version 6.8 from
 fontaine.texi.
 
 Copyright (C) 2022-2025 Free Software Foundation, Inc.
@@ -20,7 +20,7 @@ START-INFO-DIR-ENTRY
 END-INFO-DIR-ENTRY
 
 
-File: docKTl9bI.info,  Node: Top,  Next: Overview,  Up: (dir)
+File: docwQGvgV.info,  Node: Top,  Next: Overview,  Up: (dir)
 
 fontaine.el: Set font configurations using presets
 **************************************************
@@ -47,7 +47,7 @@ every other piece of information pertinent to it.
 does not yet form part of the latest tagged commit, is explicitly marked
 as such.
 
-   Current development target is 2.2.0-dev.
+   Current development target is 3.0.0-dev.
 
    • Package name (GNU ELPA): ‘fontaine’
    • Official manual: <https://protesilaos.com/emacs/fontaine>
@@ -94,7 +94,7 @@ Indices
 
 
 
-File: docKTl9bI.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
+File: docwQGvgV.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
 
 1 Overview
 **********
@@ -254,7 +254,7 @@ Are Irrelevant in Non-graphical Emacs (because that is actually true).
 * Inherit the properties of another named preset::
 
 
-File: docKTl9bI.info,  Node: Shared and implicit fallback values for presets,  Next: Inherit the properties of another named preset,  Up: Overview
+File: docwQGvgV.info,  Node: Shared and implicit fallback values for presets,  Next: Inherit the properties of another named preset,  Up: Overview
 
 1.1 Shared and implicit fallback values for presets
 ===================================================
@@ -488,7 +488,7 @@ they intend to change their values).  We then have this transformation:
               :variable-pitch-height 1.05)))
 
 
-File: docKTl9bI.info,  Node: Inherit the properties of another named preset,  Prev: Shared and implicit fallback values for presets,  Up: Overview
+File: docwQGvgV.info,  Node: Inherit the properties of another named preset,  Prev: Shared and implicit fallback values for presets,  Up: Overview
 
 1.2 Inherit the properties of another named preset
 ==================================================
@@ -541,7 +541,7 @@ inheritance.  If there is a compelling need for it, we can add it in
 future versions.
 
 
-File: docKTl9bI.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
+File: docwQGvgV.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
 
 2 Installation
 **************
@@ -552,7 +552,7 @@ File: docKTl9bI.info,  Node: Installation,  Next: Sample configuration,  Prev: O
 * Manual installation::
 
 
-File: docKTl9bI.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
+File: docwQGvgV.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
 
 2.1 GNU ELPA package
 ====================
@@ -571,7 +571,7 @@ archive.  Read:
 <https://protesilaos.com/codelog/2022-05-13-emacs-elpa-devel/>.
 
 
-File: docKTl9bI.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
+File: docwQGvgV.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
 
 2.2 Manual installation
 =======================
@@ -598,7 +598,7 @@ following commands in a shell prompt:
    Everything is in place to set up the package.
 
 
-File: docKTl9bI.info,  Node: Sample configuration,  Next: Acknowledgements,  Prev: Installation,  Up: Top
+File: docwQGvgV.info,  Node: Sample configuration,  Next: Acknowledgements,  Prev: Installation,  Up: Top
 
 3 Sample configuration
 **********************
@@ -702,13 +702,15 @@ Remember to read the relevant doc strings.
 * Theme-agnostic hook before Emacs 29::
 
 
-File: docKTl9bI.info,  Node: Persist font configurations on theme switch,  Next: Theme-agnostic hook for Emacs 29 or higher,  Up: Sample configuration
+File: docwQGvgV.info,  Node: Persist font configurations on theme switch,  Next: Theme-agnostic hook for Emacs 29 or higher,  Up: Sample configuration
 
 3.1 Persist font configurations on theme switch
 ===============================================
 
 [ Since version ‘2.0.0’, there exists the ‘fontaine-mode’ which does
-this automatically.  ]
+this automatically.  The ‘fontaine-apply-current-preset’ is obsolete as
+of 3.0.0-dev because Fontaine is now implemented as a “theme” and thus
+does not get overwritten by other themes.  ]
 
    Themes re-apply face definitions when they are loaded.  This is
 necessary to render the theme.  For certain faces, such as ‘bold’ and
@@ -725,13 +727,15 @@ hook that is ran at the post ‘load-theme’ phase.
    • *note Theme-agnostic hook before Emacs 29::
 
 
-File: docKTl9bI.info,  Node: Theme-agnostic hook for Emacs 29 or higher,  Next: Theme-agnostic hook before Emacs 29,  Prev: Persist font configurations on theme switch,  Up: Sample configuration
+File: docwQGvgV.info,  Node: Theme-agnostic hook for Emacs 29 or higher,  Next: Theme-agnostic hook before Emacs 29,  Prev: Persist font configurations on theme switch,  Up: Sample configuration
 
 3.2 Theme-agnostic hook for Emacs 29 or higher
 ==============================================
 
 [ Since version ‘2.0.0’, there exists the ‘fontaine-mode’ which does
-this automatically.  ]
+this automatically.  The ‘fontaine-apply-current-preset’ is obsolete as
+of 3.0.0-dev because Fontaine is now implemented as a “theme” and thus
+does not get overwritten by other themes.  ]
 
    Emacs 29 provides the ‘enable-theme-functions’, which we can use to
 persist or restore a font preset thus (*note Persist font configurations
@@ -740,13 +744,15 @@ on theme switch::):
      (add-hook 'enable-theme-functions #'fontaine-apply-current-preset)
 
 
-File: docKTl9bI.info,  Node: Theme-agnostic hook before Emacs 29,  Prev: Theme-agnostic hook for Emacs 29 or higher,  Up: Sample configuration
+File: docwQGvgV.info,  Node: Theme-agnostic hook before Emacs 29,  Prev: Theme-agnostic hook for Emacs 29 or higher,  Up: Sample configuration
 
 3.3 Theme-agnostic hook before Emacs 29
 =======================================
 
 [ Since version ‘2.0.0’, there exists the ‘fontaine-mode’ which does
-this automatically.  ]
+this automatically.  The ‘fontaine-apply-current-preset’ is obsolete as
+of 3.0.0-dev because Fontaine is now implemented as a “theme” and thus
+does not get overwritten by other themes.  ]
 
    For versions of Emacs before 29, there is no built-in theme-agnostic
 solution to persisting or restoring a font preset (*note Theme-agnostic
@@ -771,7 +777,7 @@ generic way:
      (add-hook 'after-enable-theme-hook #'fontaine-apply-current-preset)
 
 
-File: docKTl9bI.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Sample configuration,  Up: Top
+File: docwQGvgV.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Sample configuration,  Up: Top
 
 4 Acknowledgements
 ******************
@@ -790,7 +796,7 @@ Ideas and user feedback
      Reed.
 
 
-File: docKTl9bI.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
+File: docwQGvgV.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
 
 Appendix A GNU Free Documentation License
 *****************************************
@@ -1272,7 +1278,7 @@ software license, such as the GNU General Public License, to permit
 their use in free software.
 
 
-File: docKTl9bI.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
+File: docwQGvgV.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
 
 B Indices
 *********
@@ -1284,7 +1290,7 @@ B Indices
 * Concept index::
 
 
-File: docKTl9bI.info,  Node: Function index,  Next: Variable index,  Up: Indices
+File: docwQGvgV.info,  Node: Function index,  Next: Variable index,  Up: Indices
 
 B.1 Function index
 ==================
@@ -1293,14 +1299,14 @@ B.1 Function index
 * Menu:
 
 * fontaine-apply-current-preset:         Persist font configurations on theme switch.
-                                                              (line   9)
+                                                              (line  11)
 * fontaine-restore-latest-preset:        Overview.            (line 133)
 * fontaine-set-preset:                   Overview.            (line 113)
 * fontaine-store-latest-preset:          Overview.            (line 133)
 * fontaine-toggle-preset:                Overview.            (line 141)
 
 
-File: docKTl9bI.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
+File: docwQGvgV.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
 
 B.2 Variable index
 ==================
@@ -1309,13 +1315,13 @@ B.2 Variable index
 * Menu:
 
 * fontaine-current-preset:               Persist font configurations on theme switch.
-                                                              (line   9)
+                                                              (line  11)
 * fontaine-latest-state-file:            Overview.            (line 133)
 * fontaine-presets:                      Overview.            (line   6)
 * fontaine-set-preset-hook:              Overview.            (line 130)
 
 
-File: docKTl9bI.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
+File: docwQGvgV.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
 
 B.3 Concept index
 =================
@@ -1341,14 +1347,14 @@ Node: GNU ELPA package19998
 Node: Manual installation20561
 Node: Sample configuration21338
 Node: Persist font configurations on theme switch25378
-Node: Theme-agnostic hook for Emacs 29 or higher26428
-Node: Theme-agnostic hook before Emacs 2927064
-Node: Acknowledgements28172
-Node: GNU Free Documentation License28695
-Node: Indices54056
-Node: Function index54232
-Node: Variable index54828
-Node: Concept index55373
+Node: Theme-agnostic hook for Emacs 29 or higher26601
+Node: Theme-agnostic hook before Emacs 2927410
+Node: Acknowledgements28691
+Node: GNU Free Documentation License29214
+Node: Indices54575
+Node: Function index54751
+Node: Variable index55347
+Node: Concept index55892
 
 End Tag Table
 

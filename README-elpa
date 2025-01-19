@@ -15,7 +15,7 @@ The documentation furnished herein corresponds to stable version 2.1.0,
 released on 2024-09-02.  Any reference to a newer feature which does not
 yet form part of the latest tagged commit, is explicitly marked as such.
 
-Current development target is 2.2.0-dev.
+Current development target is 3.0.0-dev.
 
 ⁃ Package name (GNU ELPA): `fontaine'
 ⁃ Official manual: <https://protesilaos.com/emacs/fontaine>
@@ -688,7 +688,9 @@ Table of Contents
 ───────────────────────────────────────────────
 
   [ Since version `2.0.0', there exists the `fontaine-mode' which does
-    this automatically. ]
+    this automatically. The `fontaine-apply-current-preset' is obsolete
+    as of 3.0.0-dev because Fontaine is now implemented as a “theme” and
+    thus does not get overwritten by other themes. ]
 
   Themes re-apply face definitions when they are loaded.  This is
   necessary to render the theme.  For certain faces, such as `bold' and
@@ -714,7 +716,9 @@ Table of Contents
 ──────────────────────────────────────────────
 
   [ Since version `2.0.0', there exists the `fontaine-mode' which does
-    this automatically. ]
+    this automatically. The `fontaine-apply-current-preset' is obsolete
+    as of 3.0.0-dev because Fontaine is now implemented as a “theme” and
+    thus does not get overwritten by other themes. ]
 
   Emacs 29 provides the `enable-theme-functions', which we can use to
   persist or restore a font preset thus ([Persist font configurations on
@@ -732,7 +736,9 @@ Table of Contents
 ───────────────────────────────────────
 
   [ Since version `2.0.0', there exists the `fontaine-mode' which does
-    this automatically. ]
+    this automatically. The `fontaine-apply-current-preset' is obsolete
+    as of 3.0.0-dev because Fontaine is now implemented as a “theme” and
+    thus does not get overwritten by other themes. ]
 
   For versions of Emacs before 29, there is no built-in theme-agnostic
   solution to persisting or restoring a font preset ([Theme-agnostic
