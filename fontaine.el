@@ -153,7 +153,7 @@
      :default-width normal
      :default-height 100
 
-     :fixed-pitch-family nil
+     :fixed-pitch-family "Monospace"
      :fixed-pitch-weight nil
      :fixed-pitch-slant nil
      :fixed-pitch-width nil
@@ -351,13 +351,21 @@ This is then used to restore the last value with the function
               (fontaine--preset-p inherit))
     inherit))
 
+(defconst fontaine-generic-face-families
+  '(:default-family "Monospace"
+    :fixed-pitch-family "Monospace"
+    :fixed-pitch-serif-family "Monospace"
+    :variable-pitch-family "Sans")
+  "Preset with generic font families for internal use.")
+
 (defun fontaine--get-preset-properties (preset)
   "Return list of properties for PRESET in `fontaine-presets'."
   (let ((presets fontaine-presets))
     (append (alist-get preset presets)
             (when-let* ((inherit (fontaine--get-inherit-name preset)))
               (alist-get inherit presets))
-            (alist-get t presets))))
+            (or (alist-get t presets)
+                fontaine-generic-face-families))))
 
 (defun fontaine--get-preset-property (preset property)
   "Get PRESET's PROPERTY."
@@ -370,7 +378,9 @@ This is then used to restore the last value with the function
 (defun fontaine--get-face-spec (preset face)
   "Set font properties taken from PRESET to FACE."
   (let* ((properties (fontaine--get-preset-properties preset))
-         (family (fontaine--get-property face "family" properties))
+         (family (or (fontaine--get-property face "family" properties)
+                     (and (eq face 'fixed-pitch)
+                          (fontaine--get-property 'default "family" properties))))
          (weight (fontaine--get-property face "weight" properties))
          (slant (fontaine--get-property face "slant" properties))
          (height (fontaine--get-property face "height" properties))

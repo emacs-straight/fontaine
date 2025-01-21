@@ -1,4 +1,4 @@
-This is docwQGvgV.info, produced by makeinfo version 6.8 from
+This is docutX0TX.info, produced by makeinfo version 6.8 from
 fontaine.texi.
 
 Copyright (C) 2022-2025 Free Software Foundation, Inc.
@@ -20,7 +20,7 @@ START-INFO-DIR-ENTRY
 END-INFO-DIR-ENTRY
 
 
-File: docwQGvgV.info,  Node: Top,  Next: Overview,  Up: (dir)
+File: docutX0TX.info,  Node: Top,  Next: Overview,  Up: (dir)
 
 fontaine.el: Set font configurations using presets
 **************************************************
@@ -94,7 +94,7 @@ Indices
 
 
 
-File: docwQGvgV.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
+File: docutX0TX.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
 
 1 Overview
 **********
@@ -254,7 +254,7 @@ Are Irrelevant in Non-graphical Emacs (because that is actually true).
 * Inherit the properties of another named preset::
 
 
-File: docwQGvgV.info,  Node: Shared and implicit fallback values for presets,  Next: Inherit the properties of another named preset,  Up: Overview
+File: docutX0TX.info,  Node: Shared and implicit fallback values for presets,  Next: Inherit the properties of another named preset,  Up: Overview
 
 1.1 Shared and implicit fallback values for presets
 ===================================================
@@ -488,7 +488,7 @@ they intend to change their values).  We then have this transformation:
               :variable-pitch-height 1.05)))
 
 
-File: docwQGvgV.info,  Node: Inherit the properties of another named preset,  Prev: Shared and implicit fallback values for presets,  Up: Overview
+File: docutX0TX.info,  Node: Inherit the properties of another named preset,  Prev: Shared and implicit fallback values for presets,  Up: Overview
 
 1.2 Inherit the properties of another named preset
 ==================================================
@@ -541,7 +541,7 @@ inheritance.  If there is a compelling need for it, we can add it in
 future versions.
 
 
-File: docwQGvgV.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
+File: docutX0TX.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
 
 2 Installation
 **************
@@ -552,7 +552,7 @@ File: docwQGvgV.info,  Node: Installation,  Next: Sample configuration,  Prev: O
 * Manual installation::
 
 
-File: docwQGvgV.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
+File: docutX0TX.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
 
 2.1 GNU ELPA package
 ====================
@@ -571,7 +571,7 @@ archive.  Read:
 <https://protesilaos.com/codelog/2022-05-13-emacs-elpa-devel/>.
 
 
-File: docwQGvgV.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
+File: docutX0TX.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
 
 2.2 Manual installation
 =======================
@@ -598,7 +598,7 @@ following commands in a shell prompt:
    Everything is in place to set up the package.
 
 
-File: docwQGvgV.info,  Node: Sample configuration,  Next: Acknowledgements,  Prev: Installation,  Up: Top
+File: docutX0TX.info,  Node: Sample configuration,  Next: Acknowledgements,  Prev: Installation,  Up: Top
 
 3 Sample configuration
 **********************
@@ -702,7 +702,7 @@ Remember to read the relevant doc strings.
 * Theme-agnostic hook before Emacs 29::
 
 
-File: docwQGvgV.info,  Node: Persist font configurations on theme switch,  Next: Theme-agnostic hook for Emacs 29 or higher,  Up: Sample configuration
+File: docutX0TX.info,  Node: Persist font configurations on theme switch,  Next: Theme-agnostic hook for Emacs 29 or higher,  Up: Sample configuration
 
 3.1 Persist font configurations on theme switch
 ===============================================
@@ -727,7 +727,7 @@ hook that is ran at the post ‘load-theme’ phase.
    • *note Theme-agnostic hook before Emacs 29::
 
 
-File: docwQGvgV.info,  Node: Theme-agnostic hook for Emacs 29 or higher,  Next: Theme-agnostic hook before Emacs 29,  Prev: Persist font configurations on theme switch,  Up: Sample configuration
+File: docutX0TX.info,  Node: Theme-agnostic hook for Emacs 29 or higher,  Next: Theme-agnostic hook before Emacs 29,  Prev: Persist font configurations on theme switch,  Up: Sample configuration
 
 3.2 Theme-agnostic hook for Emacs 29 or higher
 ==============================================
@@ -744,7 +744,7 @@ on theme switch::):
      (add-hook 'enable-theme-functions #'fontaine-apply-current-preset)
 
 
-File: docwQGvgV.info,  Node: Theme-agnostic hook before Emacs 29,  Prev: Theme-agnostic hook for Emacs 29 or higher,  Up: Sample configuration
+File: docutX0TX.info,  Node: Theme-agnostic hook before Emacs 29,  Prev: Theme-agnostic hook for Emacs 29 or higher,  Up: Sample configuration
 
 3.3 Theme-agnostic hook before Emacs 29
 =======================================
@@ -777,7 +777,7 @@ generic way:
      (add-hook 'after-enable-theme-hook #'fontaine-apply-current-preset)
 
 
-File: docwQGvgV.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Sample configuration,  Up: Top
+File: docutX0TX.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Sample configuration,  Up: Top
 
 4 Acknowledgements
 ******************
@@ -796,7 +796,7 @@ Ideas and user feedback
      Reed.
 
 
-File: docwQGvgV.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
+File: docutX0TX.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
 
 Appendix A GNU Free Documentation License
 *****************************************
@@ -1278,7 +1278,7 @@ software license, such as the GNU General Public License, to permit
 their use in free software.
 
 
-File: docwQGvgV.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
+File: docutX0TX.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
 
 B Indices
 *********
@@ -1290,7 +1290,7 @@ B Indices
 * Concept index::
 
 
-File: docwQGvgV.info,  Node: Function index,  Next: Variable index,  Up: Indices
+File: docutX0TX.info,  Node: Function index,  Next: Variable index,  Up: Indices
 
 B.1 Function index
 ==================
@@ -1306,7 +1306,7 @@ B.1 Function index
 * fontaine-toggle-preset:                Overview.            (line 141)
 
 
-File: docwQGvgV.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
+File: docutX0TX.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
 
 B.2 Variable index
 ==================
@@ -1321,7 +1321,7 @@ B.2 Variable index
 * fontaine-set-preset-hook:              Overview.            (line 130)
 
 
-File: docwQGvgV.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
+File: docutX0TX.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
 
 B.3 Concept index
 =================
