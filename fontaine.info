@@ -1,4 +1,4 @@
-This is doca2KjP0.info, produced by makeinfo version 6.8 from
+This is docjnxjsM.info, produced by makeinfo version 6.8 from
 fontaine.texi.
 
 Copyright (C) 2022-2025 Free Software Foundation, Inc.
@@ -20,7 +20,7 @@ START-INFO-DIR-ENTRY
 END-INFO-DIR-ENTRY
 
 
-File: doca2KjP0.info,  Node: Top,  Next: Overview,  Up: (dir)
+File: docjnxjsM.info,  Node: Top,  Next: Overview,  Up: (dir)
 
 fontaine.el: Set font configurations using presets
 **************************************************
@@ -43,11 +43,11 @@ customization options for ‘fontaine’ (or ‘fontaine.el’), and provides
 every other piece of information pertinent to it.
 
    The documentation furnished herein corresponds to stable version
-2.1.0, released on 2024-09-02.  Any reference to a newer feature which
+3.0.0, released on 2025-02-20.  Any reference to a newer feature which
 does not yet form part of the latest tagged commit, is explicitly marked
 as such.
 
-   Current development target is 3.0.0-dev.
+   Current development target is 3.1.0-dev.
 
    • Package name (GNU ELPA): ‘fontaine’
    • Official manual: <https://protesilaos.com/emacs/fontaine>
@@ -94,7 +94,7 @@ Indices
 
 
 
-File: doca2KjP0.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
+File: docjnxjsM.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
 
 1 Overview
 **********
@@ -196,7 +196,7 @@ property list.  It looks like this (check the default value of
         ;; More properties here
         )
        (medium
-        :default-family "Iosevka Comfy Wide")
+        :default-family "Aporetic Serif Mono")
        ;; More presets here
        )
 
@@ -254,7 +254,7 @@ Are Irrelevant in Non-graphical Emacs (because that is actually true).
 * Inherit the properties of another named preset::
 
 
-File: doca2KjP0.info,  Node: Shared and implicit fallback values for presets,  Next: Inherit the properties of another named preset,  Up: Overview
+File: docjnxjsM.info,  Node: Shared and implicit fallback values for presets,  Next: Inherit the properties of another named preset,  Up: Overview
 
 1.1 Shared and implicit fallback values for presets
 ===================================================
@@ -283,7 +283,7 @@ its default value before you make any edits):
               :italic-slant italic
               :line-spacing 1)
              (large
-              :default-family "Iosevka"
+              :default-family "Aporetic Sans Mono"
               :default-weight normal
               :default-height 150
               :fixed-pitch-family nil ; falls back to :default-family
@@ -319,7 +319,7 @@ lines are left empty for didactic purposes):
 
               :line-spacing 1)
              (large
-              :default-family "Iosevka"
+              :default-family "Aporetic Sans Mono"
 
               :default-height 150
 
@@ -346,7 +346,7 @@ as the first example:
               :italic-family "Source Code Pro"
               :line-spacing 1)
              (large
-              :default-family "Iosevka"
+              :default-family "Aporetic Sans Mono"
               :default-height 150
               :variable-pitch-family "FiraGO"
               :line-spacing 1)))
@@ -367,7 +367,7 @@ thus far.  Here is how verbose presets can be expressed succinctly:
      ;; Notice the duplication of properties and how we will avoid it.
      (setq fontaine-presets
            '((regular
-              :default-family "Iosevka Comfy"
+              :default-family "Aporetic Sans Mono"
               :default-weight normal
               :default-height 100
               :fixed-pitch-family nil ; falls back to :default-family
@@ -382,7 +382,7 @@ thus far.  Here is how verbose presets can be expressed succinctly:
               :italic-slant italic
               :line-spacing nil)
              (medium
-              :default-family "Iosevka Comfy"
+              :default-family "Aporetic Sans Mono"
               :default-weight semilight
               :default-height 140
               :fixed-pitch-family nil ; falls back to :default-family
@@ -397,7 +397,7 @@ thus far.  Here is how verbose presets can be expressed succinctly:
               :italic-slant italic
               :line-spacing nil)
              (large
-              :default-family "Iosevka Comfy"
+              :default-family "Aporetic Sans Mono"
               :default-weight semilight
               :default-height 180
               :fixed-pitch-family nil ; falls back to :default-family
@@ -423,7 +423,7 @@ thus far.  Here is how verbose presets can be expressed succinctly:
               :default-height 180
               :bold-weight extrabold)
              (t ; our shared fallback properties
-              :default-family "Iosevka Comfy"
+              :default-family "Aporetic Sans Mono"
               :default-weight normal
               ;; :default-height 100
               :fixed-pitch-family nil ; falls back to :default-family
@@ -455,7 +455,7 @@ they intend to change their values).  We then have this transformation:
               :default-height 180
               :bold-weight extrabold)
              (t ; our shared fallback properties
-              :default-family "Iosevka Comfy"
+              :default-family "Aporetic Sans Mono"
               :default-weight normal
               ;; :default-height 100
               :fixed-pitch-family nil ; falls back to :default-family
@@ -482,13 +482,13 @@ they intend to change their values).  We then have this transformation:
               :default-height 180
               :bold-weight extrabold)
              (t ; our shared fallback properties
-              :default-family "Iosevka Comfy"
+              :default-family "Aporetic Sans Mono"
               :default-weight normal
               :variable-pitch-family "FiraGO"
               :variable-pitch-height 1.05)))
 
 
-File: doca2KjP0.info,  Node: Inherit the properties of another named preset,  Prev: Shared and implicit fallback values for presets,  Up: Overview
+File: docjnxjsM.info,  Node: Inherit the properties of another named preset,  Prev: Shared and implicit fallback values for presets,  Up: Overview
 
 1.2 Inherit the properties of another named preset
 ==================================================
@@ -541,7 +541,7 @@ inheritance.  If there is a compelling need for it, we can add it in
 future versions.
 
 
-File: doca2KjP0.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
+File: docjnxjsM.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
 
 2 Installation
 **************
@@ -552,7 +552,7 @@ File: doca2KjP0.info,  Node: Installation,  Next: Sample configuration,  Prev: O
 * Manual installation::
 
 
-File: doca2KjP0.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
+File: docjnxjsM.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
 
 2.1 GNU ELPA package
 ====================
@@ -571,7 +571,7 @@ archive.  Read:
 <https://protesilaos.com/codelog/2022-05-13-emacs-elpa-devel/>.
 
 
-File: doca2KjP0.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
+File: docjnxjsM.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
 
 2.2 Manual installation
 =======================
@@ -598,7 +598,7 @@ following commands in a shell prompt:
    Everything is in place to set up the package.
 
 
-File: doca2KjP0.info,  Node: Sample configuration,  Next: Acknowledgements,  Prev: Installation,  Up: Top
+File: docjnxjsM.info,  Node: Sample configuration,  Next: Acknowledgements,  Prev: Installation,  Up: Top
 
 3 Sample configuration
 **********************
@@ -610,15 +610,13 @@ Remember to read the relevant doc strings.
      (setq fontaine-latest-state-file
            (locate-user-emacs-file "fontaine-latest-state.eld"))
 
-     ;; Iosevka Comfy is my highly customised build of Iosevka with
-     ;; monospaced and duospaced (quasi-proportional) variants as well as
-     ;; support or no support for ligatures:
-     ;; <https://github.com/protesilaos/iosevka-comfy>.
+     ;; Aporetic is my highly customised build of Iosevka:
+     ;; <https://github.com/protesilaos/aporetic>.
      (setq fontaine-presets
            '((small
-              :default-family "Iosevka Comfy Motion"
+              :default-family "Aporetic Serif Mono"
               :default-height 80
-              :variable-pitch-family "Iosevka Comfy Duo")
+              :variable-pitch-family "Aporetic Sans")
              (regular) ; like this it uses all the fallback values and is named `regular'
              (medium
               :default-weight semilight
@@ -633,7 +631,7 @@ Remember to read the relevant doc strings.
               ;; I keep all properties for didactic purposes, but most can be
               ;; omitted.  See the fontaine manual for the technicalities:
               ;; <https://protesilaos.com/emacs/fontaine>.
-              :default-family "Iosevka Comfy"
+              :default-family "Aporetic Sans Mono"
               :default-weight regular
               :default-height 100
 
@@ -645,7 +643,7 @@ Remember to read the relevant doc strings.
               :fixed-pitch-serif-weight nil ; falls back to :default-weight
               :fixed-pitch-serif-height 1.0
 
-              :variable-pitch-family "Iosevka Comfy Motion Duo"
+              :variable-pitch-family "Aporetic Serif"
               :variable-pitch-weight nil
               :variable-pitch-height 1.0
 
@@ -702,15 +700,15 @@ Remember to read the relevant doc strings.
 * Theme-agnostic hook before Emacs 29::
 
 
-File: doca2KjP0.info,  Node: Persist font configurations on theme switch,  Next: Theme-agnostic hook for Emacs 29 or higher,  Up: Sample configuration
+File: docjnxjsM.info,  Node: Persist font configurations on theme switch,  Next: Theme-agnostic hook for Emacs 29 or higher,  Up: Sample configuration
 
 3.1 Persist font configurations on theme switch
 ===============================================
 
 [ Since version ‘2.0.0’, there exists the ‘fontaine-mode’ which does
 this automatically.  The ‘fontaine-apply-current-preset’ is obsolete as
-of 3.0.0-dev because Fontaine is now implemented as a “theme” and thus
-does not get overwritten by other themes.  ]
+of version ‘3.0.0’ because Fontaine is now implemented as a “theme” and
+thus does not get overwritten by other themes.  ]
 
    Themes re-apply face definitions when they are loaded.  This is
 necessary to render the theme.  For certain faces, such as ‘bold’ and
@@ -727,15 +725,15 @@ hook that is ran at the post ‘load-theme’ phase.
    • *note Theme-agnostic hook before Emacs 29::
 
 
-File: doca2KjP0.info,  Node: Theme-agnostic hook for Emacs 29 or higher,  Next: Theme-agnostic hook before Emacs 29,  Prev: Persist font configurations on theme switch,  Up: Sample configuration
+File: docjnxjsM.info,  Node: Theme-agnostic hook for Emacs 29 or higher,  Next: Theme-agnostic hook before Emacs 29,  Prev: Persist font configurations on theme switch,  Up: Sample configuration
 
 3.2 Theme-agnostic hook for Emacs 29 or higher
 ==============================================
 
 [ Since version ‘2.0.0’, there exists the ‘fontaine-mode’ which does
 this automatically.  The ‘fontaine-apply-current-preset’ is obsolete as
-of 3.0.0-dev because Fontaine is now implemented as a “theme” and thus
-does not get overwritten by other themes.  ]
+of version ‘3.0.0’ because Fontaine is now implemented as a “theme” and
+thus does not get overwritten by other themes.  ]
 
    Emacs 29 provides the ‘enable-theme-functions’, which we can use to
 persist or restore a font preset thus (*note Persist font configurations
@@ -744,15 +742,15 @@ on theme switch::):
      (add-hook 'enable-theme-functions #'fontaine-apply-current-preset)
 
 
-File: doca2KjP0.info,  Node: Theme-agnostic hook before Emacs 29,  Prev: Theme-agnostic hook for Emacs 29 or higher,  Up: Sample configuration
+File: docjnxjsM.info,  Node: Theme-agnostic hook before Emacs 29,  Prev: Theme-agnostic hook for Emacs 29 or higher,  Up: Sample configuration
 
 3.3 Theme-agnostic hook before Emacs 29
 =======================================
 
 [ Since version ‘2.0.0’, there exists the ‘fontaine-mode’ which does
 this automatically.  The ‘fontaine-apply-current-preset’ is obsolete as
-of 3.0.0-dev because Fontaine is now implemented as a “theme” and thus
-does not get overwritten by other themes.  ]
+of version ‘3.0.0’ because Fontaine is now implemented as a “theme” and
+thus does not get overwritten by other themes.  ]
 
    For versions of Emacs before 29, there is no built-in theme-agnostic
 solution to persisting or restoring a font preset (*note Theme-agnostic
@@ -777,7 +775,7 @@ generic way:
      (add-hook 'after-enable-theme-hook #'fontaine-apply-current-preset)
 
 
-File: doca2KjP0.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Sample configuration,  Up: Top
+File: docjnxjsM.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Sample configuration,  Up: Top
 
 4 Acknowledgements
 ******************
@@ -796,7 +794,7 @@ Ideas and user feedback
      Haruko, Ted Reed.
 
 
-File: doca2KjP0.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
+File: docjnxjsM.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
 
 Appendix A GNU Free Documentation License
 *****************************************
@@ -1278,7 +1276,7 @@ software license, such as the GNU General Public License, to permit
 their use in free software.
 
 
-File: doca2KjP0.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
+File: docjnxjsM.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
 
 B Indices
 *********
@@ -1290,7 +1288,7 @@ B Indices
 * Concept index::
 
 
-File: doca2KjP0.info,  Node: Function index,  Next: Variable index,  Up: Indices
+File: docjnxjsM.info,  Node: Function index,  Next: Variable index,  Up: Indices
 
 B.1 Function index
 ==================
@@ -1306,7 +1304,7 @@ B.1 Function index
 * fontaine-toggle-preset:                Overview.            (line 141)
 
 
-File: doca2KjP0.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
+File: docjnxjsM.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
 
 B.2 Variable index
 ==================
@@ -1321,7 +1319,7 @@ B.2 Variable index
 * fontaine-set-preset-hook:              Overview.            (line 130)
 
 
-File: doca2KjP0.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
+File: docjnxjsM.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
 
 B.3 Concept index
 =================
@@ -1340,21 +1338,21 @@ B.3 Concept index
 Tag Table:
 Node: Top847
 Node: Overview3165
-Node: Shared and implicit fallback values for presets8629
-Node: Inherit the properties of another named preset17360
-Node: Installation19811
-Node: GNU ELPA package19998
-Node: Manual installation20561
-Node: Sample configuration21338
-Node: Persist font configurations on theme switch25378
-Node: Theme-agnostic hook for Emacs 29 or higher26601
-Node: Theme-agnostic hook before Emacs 2927410
-Node: Acknowledgements28691
-Node: GNU Free Documentation License29228
-Node: Indices54589
-Node: Function index54765
-Node: Variable index55361
-Node: Concept index55906
+Node: Shared and implicit fallback values for presets8630
+Node: Inherit the properties of another named preset17424
+Node: Installation19875
+Node: GNU ELPA package20062
+Node: Manual installation20625
+Node: Sample configuration21402
+Node: Persist font configurations on theme switch25299
+Node: Theme-agnostic hook for Emacs 29 or higher26532
+Node: Theme-agnostic hook before Emacs 2927351
+Node: Acknowledgements28642
+Node: GNU Free Documentation License29179
+Node: Indices54540
+Node: Function index54716
+Node: Variable index55312
+Node: Concept index55857
 
 End Tag Table
 
