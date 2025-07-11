@@ -1,2 +1,2 @@
-;; Generated package description from mode: lisp-data; .el  -*- fontaineno-byte-compile: t -*-
-(define-package "fontaine" "3.0.1.0.20250415.152114" "Set font configurations using presets" '((emacs "29.1")) :commit "8b1ddcaa47a495564fb0b24a9e043de46000a029" :authors '(("Protesilaos Stavrou" . "info@protesilaos.com")) :maintainer '("Protesilaos Stavrou" . "info@protesilaos.com") :url "https://github.com/protesilaos/fontaine")
+;; Generated package description from fontaine.el  -*- mode: lisp-data; no-byte-compile: t -*-
+(define-package "fontaine" "3.0.1.0.20250710.40159" "Set font configurations using presets" '((emacs "29.1")) :commit "6f148502eaf128f5e87a6c54162eec7e34196a6a" :authors '(("Protesilaos Stavrou" . "info@protesilaos.com")) :maintainer '("Protesilaos Stavrou" . "info@protesilaos.com") :url "https://github.com/protesilaos/fontaine")

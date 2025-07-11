@@ -39,8 +39,9 @@ Table of Contents
 .. 2. Manual installation
 4. Sample configuration
 .. 1. Persist font configurations on theme switch
-.. 2. Theme-agnostic hook for Emacs 29 or higher
-.. 3. Theme-agnostic hook before Emacs 29
+.. 2. Persist frame size on non-auto tiling window managers
+.. 3. Theme-agnostic hook for Emacs 29 or higher
+.. 4. Theme-agnostic hook before Emacs 29
 5. Acknowledgements
 6. GNU Free Documentation License
 7. Indices
@@ -697,12 +698,27 @@ Table of Contents
   • [Theme-agnostic hook before Emacs 29]
 
 
-[Theme-agnostic hook for Emacs 29 or higher] See section 4.2
+[Theme-agnostic hook for Emacs 29 or higher] See section 4.3
 
-[Theme-agnostic hook before Emacs 29] See section 4.3
+[Theme-agnostic hook before Emacs 29] See section 4.4
 
 
-4.2 Theme-agnostic hook for Emacs 29 or higher
+4.2 Persist frame size on non-auto tiling window managers
+─────────────────────────────────────────────────────────
+
+  [ Fontaine does this automatically as of 3.1.0-dev. ]
+
+  If using a non-tiling window manager e.g. GNOME/KDE, when a new preset
+  is applied the frame may be resized in order to preserve the number of
+  columns or lines it displays.  To disable this feature set
+  `frame-inhibit-implied-resize' to `t'.
+
+  ┌────
+  │ (setq frame-inhibit-implied-resize t)
+  └────
+
+
+4.3 Theme-agnostic hook for Emacs 29 or higher
 ──────────────────────────────────────────────
 
   [ Since version `2.0.0', there exists the `fontaine-mode' which does
@@ -722,7 +738,7 @@ Table of Contents
 [Persist font configurations on theme switch] See section 4.1
 
 
-4.3 Theme-agnostic hook before Emacs 29
+4.4 Theme-agnostic hook before Emacs 29
 ───────────────────────────────────────
 
   [ Since version `2.0.0', there exists the `fontaine-mode' which does
@@ -757,7 +773,7 @@ Table of Contents
   └────
 
 
-[Theme-agnostic hook for Emacs 29 or higher] See section 4.2
+[Theme-agnostic hook for Emacs 29 or higher] See section 4.3
 
 
 5 Acknowledgements
@@ -771,7 +787,7 @@ Table of Contents
 
   Contributions to the code or manual
         Christopher League, Eli Zaretskii, Florent Teissier, Jorge
-        Gomez, Nicolas Venegas, Terry F.  Torrey.
+        Gomez, Morgan Perry, Nicolas Venegas, Terry F. Torrey.
 
   Ideas and user feedback
         Adam Porter (alphapapa), Ashlin Eldridge, Emily Hyland, Joe

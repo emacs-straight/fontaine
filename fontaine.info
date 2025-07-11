@@ -1,4 +1,4 @@
-This is dochMUpHi.info, produced by makeinfo version 6.8 from
+This is docogS7SD.info, produced by makeinfo version 6.8 from
 fontaine.texi.
 
 Copyright (C) 2022-2025 Free Software Foundation, Inc.
@@ -20,7 +20,7 @@ START-INFO-DIR-ENTRY
 END-INFO-DIR-ENTRY
 
 
-File: dochMUpHi.info,  Node: Top,  Next: Overview,  Up: (dir)
+File: docogS7SD.info,  Node: Top,  Next: Overview,  Up: (dir)
 
 fontaine.el: Set font configurations using presets
 **************************************************
@@ -83,6 +83,7 @@ Installation
 Sample configuration
 
 * Persist font configurations on theme switch::
+* Persist frame size on non-auto tiling window managers::
 * Theme-agnostic hook for Emacs 29 or higher::
 * Theme-agnostic hook before Emacs 29::
 
@@ -94,7 +95,7 @@ Indices
 
 
 
-File: dochMUpHi.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
+File: docogS7SD.info,  Node: Overview,  Next: Installation,  Prev: Top,  Up: Top
 
 1 Overview
 **********
@@ -246,7 +247,7 @@ Are Irrelevant in Non-graphical Emacs (because that is actually true).
 * Inherit the properties of another named preset::
 
 
-File: dochMUpHi.info,  Node: Shared and implicit fallback values for presets,  Next: Inherit the properties of another named preset,  Up: Overview
+File: docogS7SD.info,  Node: Shared and implicit fallback values for presets,  Next: Inherit the properties of another named preset,  Up: Overview
 
 1.1 Shared and implicit fallback values for presets
 ===================================================
@@ -480,7 +481,7 @@ they intend to change their values).  We then have this transformation:
               :variable-pitch-height 1.05)))
 
 
-File: dochMUpHi.info,  Node: Inherit the properties of another named preset,  Prev: Shared and implicit fallback values for presets,  Up: Overview
+File: docogS7SD.info,  Node: Inherit the properties of another named preset,  Prev: Shared and implicit fallback values for presets,  Up: Overview
 
 1.2 Inherit the properties of another named preset
 ==================================================
@@ -533,7 +534,7 @@ inheritance.  If there is a compelling need for it, we can add it in
 future versions.
 
 
-File: dochMUpHi.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
+File: docogS7SD.info,  Node: Installation,  Next: Sample configuration,  Prev: Overview,  Up: Top
 
 2 Installation
 **************
@@ -544,7 +545,7 @@ File: dochMUpHi.info,  Node: Installation,  Next: Sample configuration,  Prev: O
 * Manual installation::
 
 
-File: dochMUpHi.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
+File: docogS7SD.info,  Node: GNU ELPA package,  Next: Manual installation,  Up: Installation
 
 2.1 GNU ELPA package
 ====================
@@ -563,7 +564,7 @@ archive.  Read:
 <https://protesilaos.com/codelog/2022-05-13-emacs-elpa-devel/>.
 
 
-File: dochMUpHi.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
+File: docogS7SD.info,  Node: Manual installation,  Prev: GNU ELPA package,  Up: Installation
 
 2.2 Manual installation
 =======================
@@ -590,7 +591,7 @@ following commands in a shell prompt:
    Everything is in place to set up the package.
 
 
-File: dochMUpHi.info,  Node: Sample configuration,  Next: Acknowledgements,  Prev: Installation,  Up: Top
+File: docogS7SD.info,  Node: Sample configuration,  Next: Acknowledgements,  Prev: Installation,  Up: Top
 
 3 Sample configuration
 **********************
@@ -688,11 +689,12 @@ Remember to read the relevant doc strings.
 * Menu:
 
 * Persist font configurations on theme switch::
+* Persist frame size on non-auto tiling window managers::
 * Theme-agnostic hook for Emacs 29 or higher::
 * Theme-agnostic hook before Emacs 29::
 
 
-File: dochMUpHi.info,  Node: Persist font configurations on theme switch,  Next: Theme-agnostic hook for Emacs 29 or higher,  Up: Sample configuration
+File: docogS7SD.info,  Node: Persist font configurations on theme switch,  Next: Persist frame size on non-auto tiling window managers,  Up: Sample configuration
 
 3.1 Persist font configurations on theme switch
 ===============================================
@@ -717,9 +719,24 @@ hook that is ran at the post ‘load-theme’ phase.
    • *note Theme-agnostic hook before Emacs 29::
 
 
-File: dochMUpHi.info,  Node: Theme-agnostic hook for Emacs 29 or higher,  Next: Theme-agnostic hook before Emacs 29,  Prev: Persist font configurations on theme switch,  Up: Sample configuration
+File: docogS7SD.info,  Node: Persist frame size on non-auto tiling window managers,  Next: Theme-agnostic hook for Emacs 29 or higher,  Prev: Persist font configurations on theme switch,  Up: Sample configuration
 
-3.2 Theme-agnostic hook for Emacs 29 or higher
+3.2 Persist frame size on non-auto tiling window managers
+=========================================================
+
+[ Fontaine does this automatically as of 3.1.0-dev.  ]
+
+   If using a non-tiling window manager e.g.  GNOME/KDE, when a new
+preset is applied the frame may be resized in order to preserve the
+number of columns or lines it displays.  To disable this feature set
+‘frame-inhibit-implied-resize’ to ‘t’.
+
+     (setq frame-inhibit-implied-resize t)
+
+
+File: docogS7SD.info,  Node: Theme-agnostic hook for Emacs 29 or higher,  Next: Theme-agnostic hook before Emacs 29,  Prev: Persist frame size on non-auto tiling window managers,  Up: Sample configuration
+
+3.3 Theme-agnostic hook for Emacs 29 or higher
 ==============================================
 
 [ Since version ‘2.0.0’, there exists the ‘fontaine-mode’ which does
@@ -734,9 +751,9 @@ on theme switch::):
      (add-hook 'enable-theme-functions #'fontaine-apply-current-preset)
 
 
-File: dochMUpHi.info,  Node: Theme-agnostic hook before Emacs 29,  Prev: Theme-agnostic hook for Emacs 29 or higher,  Up: Sample configuration
+File: docogS7SD.info,  Node: Theme-agnostic hook before Emacs 29,  Prev: Theme-agnostic hook for Emacs 29 or higher,  Up: Sample configuration
 
-3.3 Theme-agnostic hook before Emacs 29
+3.4 Theme-agnostic hook before Emacs 29
 =======================================
 
 [ Since version ‘2.0.0’, there exists the ‘fontaine-mode’ which does
@@ -767,7 +784,7 @@ generic way:
      (add-hook 'after-enable-theme-hook #'fontaine-apply-current-preset)
 
 
-File: dochMUpHi.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Sample configuration,  Up: Top
+File: docogS7SD.info,  Node: Acknowledgements,  Next: GNU Free Documentation License,  Prev: Sample configuration,  Up: Top
 
 4 Acknowledgements
 ******************
@@ -779,14 +796,14 @@ Author/maintainer
 
 Contributions to the code or manual
      Christopher League, Eli Zaretskii, Florent Teissier, Jorge Gomez,
-     Nicolas Venegas, Terry F.  Torrey.
+     Morgan Perry, Nicolas Venegas, Terry F.  Torrey.
 
 Ideas and user feedback
      Adam Porter (alphapapa), Ashlin Eldridge, Emily Hyland, Joe Higton,
      Haruko, Ted Reed.
 
 
-File: dochMUpHi.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
+File: docogS7SD.info,  Node: GNU Free Documentation License,  Next: Indices,  Prev: Acknowledgements,  Up: Top
 
 Appendix A GNU Free Documentation License
 *****************************************
@@ -1268,7 +1285,7 @@ software license, such as the GNU General Public License, to permit
 their use in free software.
 
 
-File: dochMUpHi.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
+File: docogS7SD.info,  Node: Indices,  Prev: GNU Free Documentation License,  Up: Top
 
 B Indices
 *********
@@ -1280,7 +1297,7 @@ B Indices
 * Concept index::
 
 
-File: dochMUpHi.info,  Node: Function index,  Next: Variable index,  Up: Indices
+File: docogS7SD.info,  Node: Function index,  Next: Variable index,  Up: Indices
 
 B.1 Function index
 ==================
@@ -1296,7 +1313,7 @@ B.1 Function index
 * fontaine-toggle-preset:                Overview.            (line 133)
 
 
-File: dochMUpHi.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
+File: docogS7SD.info,  Node: Variable index,  Next: Concept index,  Prev: Function index,  Up: Indices
 
 B.2 Variable index
 ==================
@@ -1311,7 +1328,7 @@ B.2 Variable index
 * fontaine-set-preset-hook:              Overview.            (line 122)
 
 
-File: dochMUpHi.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
+File: docogS7SD.info,  Node: Concept index,  Prev: Variable index,  Up: Indices
 
 B.3 Concept index
 =================
@@ -1329,22 +1346,23 @@ B.3 Concept index
 
 Tag Table:
 Node: Top847
-Node: Overview3165
-Node: Shared and implicit fallback values for presets8114
-Node: Inherit the properties of another named preset16908
-Node: Installation19359
-Node: GNU ELPA package19546
-Node: Manual installation20109
-Node: Sample configuration20886
-Node: Persist font configurations on theme switch24783
-Node: Theme-agnostic hook for Emacs 29 or higher26016
-Node: Theme-agnostic hook before Emacs 2926835
-Node: Acknowledgements28126
-Node: GNU Free Documentation License28680
-Node: Indices54041
-Node: Function index54217
-Node: Variable index54813
-Node: Concept index55358
+Node: Overview3223
+Node: Shared and implicit fallback values for presets8172
+Node: Inherit the properties of another named preset16966
+Node: Installation19417
+Node: GNU ELPA package19604
+Node: Manual installation20167
+Node: Sample configuration20944
+Node: Persist font configurations on theme switch24899
+Node: Persist frame size on non-auto tiling window managers26143
+Node: Theme-agnostic hook for Emacs 29 or higher26829
+Node: Theme-agnostic hook before Emacs 2927658
+Node: Acknowledgements28949
+Node: GNU Free Documentation License29517
+Node: Indices54878
+Node: Function index55054
+Node: Variable index55650
+Node: Concept index56195
 
 End Tag Table
 
