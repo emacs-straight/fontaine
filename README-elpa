@@ -53,7 +53,7 @@ Table of Contents
 1 COPYING
 ═════════
 
-  Copyright (C) 2022-2025 Free Software Foundation, Inc.
+  Copyright (C) 2022-2026 Free Software Foundation, Inc.
 
         Permission is granted to copy, distribute and/or modify
         this document under the terms of the GNU Free
@@ -234,35 +234,35 @@ Table of Contents
   │ ;; `fontaine-presets' accepts.
   │ (setq fontaine-presets
   │       '((regular
-  │ 	 :default-family "Hack"
-  │ 	 :default-weight normal
-  │ 	 :default-height 100
-  │ 	 :fixed-pitch-family "Fira Code"
-  │ 	 :fixed-pitch-weight nil ; falls back to :default-weight
-  │ 	 :fixed-pitch-height 1.0
-  │ 	 :variable-pitch-family "Noto Sans"
-  │ 	 :variable-pitch-weight normal
-  │ 	 :variable-pitch-height 1.0
-  │ 	 :bold-family nil ; use whatever the underlying face has
-  │ 	 :bold-weight bold
-  │ 	 :italic-family "Source Code Pro"
-  │ 	 :italic-slant italic
-  │ 	 :line-spacing 1)
-  │ 	(large
-  │ 	 :default-family "Aporetic Sans Mono"
-  │ 	 :default-weight normal
-  │ 	 :default-height 150
-  │ 	 :fixed-pitch-family nil ; falls back to :default-family
-  │ 	 :fixed-pitch-weight nil ; falls back to :default-weight
-  │ 	 :fixed-pitch-height 1.0
-  │ 	 :variable-pitch-family "FiraGO"
-  │ 	 :variable-pitch-weight normal
-  │ 	 :variable-pitch-height 1.05
-  │ 	 :bold-family nil ; use whatever the underlying face has
-  │ 	 :bold-weight bold
-  │ 	 :italic-family nil ; use whatever the underlying face has
-  │ 	 :italic-slant italic
-  │ 	 :line-spacing 1)))
+  │          :default-family "Hack"
+  │          :default-weight normal
+  │          :default-height 100
+  │          :fixed-pitch-family "Fira Code"
+  │          :fixed-pitch-weight nil ; falls back to :default-weight
+  │          :fixed-pitch-height 1.0
+  │          :variable-pitch-family "Noto Sans"
+  │          :variable-pitch-weight normal
+  │          :variable-pitch-height 1.0
+  │          :bold-family nil ; use whatever the underlying face has
+  │          :bold-weight bold
+  │          :italic-family "Source Code Pro"
+  │          :italic-slant italic
+  │          :line-spacing 1)
+  │         (large
+  │          :default-family "Aporetic Sans Mono"
+  │          :default-weight normal
+  │          :default-height 150
+  │          :fixed-pitch-family nil ; falls back to :default-family
+  │          :fixed-pitch-weight nil ; falls back to :default-weight
+  │          :fixed-pitch-height 1.0
+  │          :variable-pitch-family "FiraGO"
+  │          :variable-pitch-weight normal
+  │          :variable-pitch-height 1.05
+  │          :bold-family nil ; use whatever the underlying face has
+  │          :bold-weight bold
+  │          :italic-family nil ; use whatever the underlying face has
+  │          :italic-slant italic
+  │          :line-spacing 1)))
   └────
 
   Notice that not all properties need to be specified, as they have
@@ -272,35 +272,35 @@ Table of Contents
   ┌────
   │ (setq fontaine-presets
   │       '((regular
-  │ 	 :default-family "Hack"
+  │          :default-family "Hack"
   │ 
-  │ 	 :default-height 100
-  │ 	 :fixed-pitch-family "Fira Code"
-  │ 
-  │ 
-  │ 	 :variable-pitch-family "Noto Sans"
+  │          :default-height 100
+  │          :fixed-pitch-family "Fira Code"
   │ 
   │ 
-  │ 
-  │ 
-  │ 	 :italic-family "Source Code Pro"
-  │ 
-  │ 	 :line-spacing 1)
-  │ 	(large
-  │ 	 :default-family "Aporetic Sans Mono"
-  │ 
-  │ 	 :default-height 150
-  │ 
-  │ 
-  │ 
-  │ 	 :variable-pitch-family "FiraGO"
+  │          :variable-pitch-family "Noto Sans"
   │ 
   │ 
   │ 
   │ 
+  │          :italic-family "Source Code Pro"
+  │ 
+  │          :line-spacing 1)
+  │         (large
+  │          :default-family "Aporetic Sans Mono"
+  │ 
+  │          :default-height 150
   │ 
   │ 
-  │ 	 :line-spacing 1)))
+  │ 
+  │          :variable-pitch-family "FiraGO"
+  │ 
+  │ 
+  │ 
+  │ 
+  │ 
+  │ 
+  │          :line-spacing 1)))
   └────
 
   Without the empty lines, we have this, which yields the same results
@@ -309,17 +309,17 @@ Table of Contents
   ┌────
   │ (setq fontaine-presets
   │       '((regular
-  │ 	 :default-family "Hack"
-  │ 	 :default-height 100
-  │ 	 :fixed-pitch-family "Fira Code"
-  │ 	 :variable-pitch-family "Noto Sans"
-  │ 	 :italic-family "Source Code Pro"
-  │ 	 :line-spacing 1)
-  │ 	(large
-  │ 	 :default-family "Aporetic Sans Mono"
-  │ 	 :default-height 150
-  │ 	 :variable-pitch-family "FiraGO"
-  │ 	 :line-spacing 1)))
+  │          :default-family "Hack"
+  │          :default-height 100
+  │          :fixed-pitch-family "Fira Code"
+  │          :variable-pitch-family "Noto Sans"
+  │          :italic-family "Source Code Pro"
+  │          :line-spacing 1)
+  │         (large
+  │          :default-family "Aporetic Sans Mono"
+  │          :default-height 150
+  │          :variable-pitch-family "FiraGO"
+  │          :line-spacing 1)))
   └────
 
   We call the properties of the removed lines “implicit fallback
@@ -340,76 +340,76 @@ Table of Contents
   │ ;; Notice the duplication of properties and how we will avoid it.
   │ (setq fontaine-presets
   │       '((regular
-  │ 	 :default-family "Aporetic Sans Mono"
-  │ 	 :default-weight normal
-  │ 	 :default-height 100
-  │ 	 :fixed-pitch-family nil ; falls back to :default-family
-  │ 	 :fixed-pitch-weight nil ; falls back to :default-weight
-  │ 	 :fixed-pitch-height 1.0
-  │ 	 :variable-pitch-family "FiraGO"
-  │ 	 :variable-pitch-weight normal
-  │ 	 :variable-pitch-height 1.05
-  │ 	 :bold-family nil ; use whatever the underlying face has
-  │ 	 :bold-weight bold
-  │ 	 :italic-family nil
-  │ 	 :italic-slant italic
-  │ 	 :line-spacing nil)
-  │ 	(medium
-  │ 	 :default-family "Aporetic Sans Mono"
-  │ 	 :default-weight semilight
-  │ 	 :default-height 140
-  │ 	 :fixed-pitch-family nil ; falls back to :default-family
-  │ 	 :fixed-pitch-weight nil ; falls back to :default-weight
-  │ 	 :fixed-pitch-height 1.0
-  │ 	 :variable-pitch-family "FiraGO"
-  │ 	 :variable-pitch-weight normal
-  │ 	 :variable-pitch-height 1.05
-  │ 	 :bold-family nil ; use whatever the underlying face has
-  │ 	 :bold-weight bold
-  │ 	 :italic-family nil
-  │ 	 :italic-slant italic
-  │ 	 :line-spacing nil)
-  │ 	(large
-  │ 	 :default-family "Aporetic Sans Mono"
-  │ 	 :default-weight semilight
-  │ 	 :default-height 180
-  │ 	 :fixed-pitch-family nil ; falls back to :default-family
-  │ 	 :fixed-pitch-weight nil ; falls back to :default-weight
-  │ 	 :fixed-pitch-height 1.0
-  │ 	 :variable-pitch-family "FiraGO"
-  │ 	 :variable-pitch-weight normal
-  │ 	 :variable-pitch-height 1.05
-  │ 	 :bold-family nil ; use whatever the underlying face has
-  │ 	 :bold-weight extrabold
-  │ 	 :italic-family nil
-  │ 	 :italic-slant italic
-  │ 	 :line-spacing nil)))
+  │          :default-family "Aporetic Sans Mono"
+  │          :default-weight normal
+  │          :default-height 100
+  │          :fixed-pitch-family nil ; falls back to :default-family
+  │          :fixed-pitch-weight nil ; falls back to :default-weight
+  │          :fixed-pitch-height 1.0
+  │          :variable-pitch-family "FiraGO"
+  │          :variable-pitch-weight normal
+  │          :variable-pitch-height 1.05
+  │          :bold-family nil ; use whatever the underlying face has
+  │          :bold-weight bold
+  │          :italic-family nil
+  │          :italic-slant italic
+  │          :line-spacing nil)
+  │         (medium
+  │          :default-family "Aporetic Sans Mono"
+  │          :default-weight semilight
+  │          :default-height 140
+  │          :fixed-pitch-family nil ; falls back to :default-family
+  │          :fixed-pitch-weight nil ; falls back to :default-weight
+  │          :fixed-pitch-height 1.0
+  │          :variable-pitch-family "FiraGO"
+  │          :variable-pitch-weight normal
+  │          :variable-pitch-height 1.05
+  │          :bold-family nil ; use whatever the underlying face has
+  │          :bold-weight bold
+  │          :italic-family nil
+  │          :italic-slant italic
+  │          :line-spacing nil)
+  │         (large
+  │          :default-family "Aporetic Sans Mono"
+  │          :default-weight semilight
+  │          :default-height 180
+  │          :fixed-pitch-family nil ; falls back to :default-family
+  │          :fixed-pitch-weight nil ; falls back to :default-weight
+  │          :fixed-pitch-height 1.0
+  │          :variable-pitch-family "FiraGO"
+  │          :variable-pitch-weight normal
+  │          :variable-pitch-height 1.05
+  │          :bold-family nil ; use whatever the underlying face has
+  │          :bold-weight extrabold
+  │          :italic-family nil
+  │          :italic-slant italic
+  │          :line-spacing nil)))
   │ 
   │ (setq fontaine-presets
   │       '((regular
-  │ 	 :default-height 100)
-  │ 	(medium
-  │ 	 :default-weight semilight
-  │ 	 :default-height 140)
-  │ 	(large
-  │ 	 :default-weight semilight
-  │ 	 :default-height 180
-  │ 	 :bold-weight extrabold)
-  │ 	(t ; our shared fallback properties
-  │ 	 :default-family "Aporetic Sans Mono"
-  │ 	 :default-weight normal
-  │ 	 ;; :default-height 100
-  │ 	 :fixed-pitch-family nil ; falls back to :default-family
-  │ 	 :fixed-pitch-weight nil ; falls back to :default-weight
-  │ 	 :fixed-pitch-height 1.0
-  │ 	 :variable-pitch-family "FiraGO"
-  │ 	 :variable-pitch-weight normal
-  │ 	 :variable-pitch-height 1.05
-  │ 	 :bold-family nil ; use whatever the underlying face has
-  │ 	 :bold-weight bold
-  │ 	 :italic-family nil
-  │ 	 :italic-slant italic
-  │ 	 :line-spacing nil)))
+  │          :default-height 100)
+  │         (medium
+  │          :default-weight semilight
+  │          :default-height 140)
+  │         (large
+  │          :default-weight semilight
+  │          :default-height 180
+  │          :bold-weight extrabold)
+  │         (t ; our shared fallback properties
+  │          :default-family "Aporetic Sans Mono"
+  │          :default-weight normal
+  │          ;; :default-height 100
+  │          :fixed-pitch-family nil ; falls back to :default-family
+  │          :fixed-pitch-weight nil ; falls back to :default-weight
+  │          :fixed-pitch-height 1.0
+  │          :variable-pitch-family "FiraGO"
+  │          :variable-pitch-weight normal
+  │          :variable-pitch-height 1.05
+  │          :bold-family nil ; use whatever the underlying face has
+  │          :bold-weight bold
+  │          :italic-family nil
+  │          :italic-slant italic
+  │          :line-spacing nil)))
   └────
 
   The `t' preset does not need to explicitly cover all properties.  It
@@ -422,46 +422,46 @@ Table of Contents
   │ ;; The verbose form
   │ (setq fontaine-presets
   │       '((regular
-  │ 	 :default-height 100)
-  │ 	(medium
-  │ 	 :default-weight semilight
-  │ 	 :default-height 140)
-  │ 	(large
-  │ 	 :default-weight semilight
-  │ 	 :default-height 180
-  │ 	 :bold-weight extrabold)
-  │ 	(t ; our shared fallback properties
-  │ 	 :default-family "Aporetic Sans Mono"
-  │ 	 :default-weight normal
-  │ 	 ;; :default-height 100
-  │ 	 :fixed-pitch-family nil ; falls back to :default-family
-  │ 	 :fixed-pitch-weight nil ; falls back to :default-weight
-  │ 	 :fixed-pitch-height 1.0
-  │ 	 :variable-pitch-family "FiraGO"
-  │ 	 :variable-pitch-weight normal
-  │ 	 :variable-pitch-height 1.05
-  │ 	 :bold-family nil ; use whatever the underlying face has
-  │ 	 :bold-weight bold
-  │ 	 :italic-family nil
-  │ 	 :italic-slant italic
-  │ 	 :line-spacing nil)))
+  │          :default-height 100)
+  │         (medium
+  │          :default-weight semilight
+  │          :default-height 140)
+  │         (large
+  │          :default-weight semilight
+  │          :default-height 180
+  │          :bold-weight extrabold)
+  │         (t ; our shared fallback properties
+  │          :default-family "Aporetic Sans Mono"
+  │          :default-weight normal
+  │          ;; :default-height 100
+  │          :fixed-pitch-family nil ; falls back to :default-family
+  │          :fixed-pitch-weight nil ; falls back to :default-weight
+  │          :fixed-pitch-height 1.0
+  │          :variable-pitch-family "FiraGO"
+  │          :variable-pitch-weight normal
+  │          :variable-pitch-height 1.05
+  │          :bold-family nil ; use whatever the underlying face has
+  │          :bold-weight bold
+  │          :italic-family nil
+  │          :italic-slant italic
+  │          :line-spacing nil)))
   │ 
   │ ;; The concise one which relies on "implicit fallback values"
   │ (setq fontaine-presets
   │       '((regular
-  │ 	 :default-height 100)
-  │ 	(medium
-  │ 	 :default-weight semilight
-  │ 	 :default-height 140)
-  │ 	(large
-  │ 	 :default-weight semilight
-  │ 	 :default-height 180
-  │ 	 :bold-weight extrabold)
-  │ 	(t ; our shared fallback properties
-  │ 	 :default-family "Aporetic Sans Mono"
-  │ 	 :default-weight normal
-  │ 	 :variable-pitch-family "FiraGO"
-  │ 	 :variable-pitch-height 1.05)))
+  │          :default-height 100)
+  │         (medium
+  │          :default-weight semilight
+  │          :default-height 140)
+  │         (large
+  │          :default-weight semilight
+  │          :default-height 180
+  │          :bold-weight extrabold)
+  │         (t ; our shared fallback properties
+  │          :default-family "Aporetic Sans Mono"
+  │          :default-weight normal
+  │          :variable-pitch-family "FiraGO"
+  │          :variable-pitch-height 1.05)))
   └────
 
 
@@ -489,22 +489,22 @@ Table of Contents
   ┌────
   │ (setq fontaine-presets
   │       '((regular
-  │ 	 :default-height 100)
-  │ 	(code-demo
-  │ 	 :default-family "Source Code Pro"
-  │ 	 :default-weight semilight
-  │ 	 :default-height 170
-  │ 	 :variable-pitch-family "Sans"
-  │ 	 :bold-weight extrabold)
-  │ 	(prose-demo
-  │ 	 :inherit code-demo ; copy the `code-demo' properties
-  │ 	 :default-family "Sans"
-  │ 	 :variable-pitch-family "Serif"
-  │ 	 :default-height 220)
-  │ 	(t
-  │ 	 :default-family "Monospace"
-  │ 	 ;; more generic fallback properties here...
-  │ 	 )))
+  │          :default-height 100)
+  │         (code-demo
+  │          :default-family "Source Code Pro"
+  │          :default-weight semilight
+  │          :default-height 170
+  │          :variable-pitch-family "Sans"
+  │          :bold-weight extrabold)
+  │         (prose-demo
+  │          :inherit code-demo ; copy the `code-demo' properties
+  │          :default-family "Sans"
+  │          :variable-pitch-family "Serif"
+  │          :default-height 220)
+  │         (t
+  │          :default-family "Monospace"
+  │          ;; more generic fallback properties here...
+  │          )))
   └────
 
   In this scenario, the `regular' preset gets all its properties from
@@ -526,9 +526,6 @@ Table of Contents
 
 3 Installation
 ══════════════
-
-
-
 
 3.1 GNU ELPA package
 ────────────────────
@@ -594,70 +591,70 @@ Table of Contents
   │ ;; <https://github.com/protesilaos/aporetic>.
   │ (setq fontaine-presets
   │       '((small
-  │ 	 :default-family "Aporetic Serif Mono"
-  │ 	 :default-height 80
-  │ 	 :variable-pitch-family "Aporetic Sans")
-  │ 	(regular) ; like this it uses all the fallback values and is named `regular'
-  │ 	(medium
-  │ 	 :default-weight semilight
-  │ 	 :default-height 115
-  │ 	 :bold-weight extrabold)
-  │ 	(large
-  │ 	 :inherit medium
-  │ 	 :default-height 150)
-  │ 	(presentation
-  │ 	 :default-height 180)
-  │ 	(t
-  │ 	 ;; I keep all properties for didactic purposes, but most can be
-  │ 	 ;; omitted.  See the fontaine manual for the technicalities:
-  │ 	 ;; <https://protesilaos.com/emacs/fontaine>.
-  │ 	 :default-family "Aporetic Sans Mono"
-  │ 	 :default-weight regular
-  │ 	 :default-height 100
+  │          :default-family "Aporetic Serif Mono"
+  │          :default-height 80
+  │          :variable-pitch-family "Aporetic Sans")
+  │         (regular) ; like this it uses all the fallback values and is named `regular'
+  │         (medium
+  │          :default-weight semilight
+  │          :default-height 115
+  │          :bold-weight extrabold)
+  │         (large
+  │          :inherit medium
+  │          :default-height 150)
+  │         (presentation
+  │          :default-height 180)
+  │         (t
+  │          ;; I keep all properties for didactic purposes, but most can be
+  │          ;; omitted.  See the fontaine manual for the technicalities:
+  │          ;; <https://protesilaos.com/emacs/fontaine>.
+  │          :default-family "Aporetic Sans Mono"
+  │          :default-weight regular
+  │          :default-height 100
   │ 
-  │ 	 :fixed-pitch-family nil ; falls back to :default-family
-  │ 	 :fixed-pitch-weight nil ; falls back to :default-weight
-  │ 	 :fixed-pitch-height 1.0
+  │          :fixed-pitch-family nil ; falls back to :default-family
+  │          :fixed-pitch-weight nil ; falls back to :default-weight
+  │          :fixed-pitch-height 1.0
   │ 
-  │ 	 :fixed-pitch-serif-family nil ; falls back to :default-family
-  │ 	 :fixed-pitch-serif-weight nil ; falls back to :default-weight
-  │ 	 :fixed-pitch-serif-height 1.0
+  │          :fixed-pitch-serif-family nil ; falls back to :default-family
+  │          :fixed-pitch-serif-weight nil ; falls back to :default-weight
+  │          :fixed-pitch-serif-height 1.0
   │ 
-  │ 	 :variable-pitch-family "Aporetic Serif"
-  │ 	 :variable-pitch-weight nil
-  │ 	 :variable-pitch-height 1.0
+  │          :variable-pitch-family "Aporetic Serif"
+  │          :variable-pitch-weight nil
+  │          :variable-pitch-height 1.0
   │ 
-  │ 	 :mode-line-active-family nil ; falls back to :default-family
-  │ 	 :mode-line-active-weight nil ; falls back to :default-weight
-  │ 	 :mode-line-active-height 0.9
+  │          :mode-line-active-family nil ; falls back to :default-family
+  │          :mode-line-active-weight nil ; falls back to :default-weight
+  │          :mode-line-active-height 0.9
   │ 
-  │ 	 :mode-line-inactive-family nil ; falls back to :default-family
-  │ 	 :mode-line-inactive-weight nil ; falls back to :default-weight
-  │ 	 :mode-line-inactive-height 0.9
+  │          :mode-line-inactive-family nil ; falls back to :default-family
+  │          :mode-line-inactive-weight nil ; falls back to :default-weight
+  │          :mode-line-inactive-height 0.9
   │ 
-  │ 	 :header-line-family nil ; falls back to :default-family
-  │ 	 :header-line-weight nil ; falls back to :default-weight
-  │ 	 :header-line-height 0.9
+  │          :header-line-family nil ; falls back to :default-family
+  │          :header-line-weight nil ; falls back to :default-weight
+  │          :header-line-height 0.9
   │ 
-  │ 	 :line-number-family nil ; falls back to :default-family
-  │ 	 :line-number-weight nil ; falls back to :default-weight
-  │ 	 :line-number-height 0.9
+  │          :line-number-family nil ; falls back to :default-family
+  │          :line-number-weight nil ; falls back to :default-weight
+  │          :line-number-height 0.9
   │ 
-  │ 	 :tab-bar-family nil ; falls back to :default-family
-  │ 	 :tab-bar-weight nil ; falls back to :default-weight
-  │ 	 :tab-bar-height 1.0
+  │          :tab-bar-family nil ; falls back to :default-family
+  │          :tab-bar-weight nil ; falls back to :default-weight
+  │          :tab-bar-height 1.0
   │ 
-  │ 	 :tab-line-family nil ; falls back to :default-family
-  │ 	 :tab-line-weight nil ; falls back to :default-weight
-  │ 	 :tab-line-height 1.0
+  │          :tab-line-family nil ; falls back to :default-family
+  │          :tab-line-weight nil ; falls back to :default-weight
+  │          :tab-line-height 1.0
   │ 
-  │ 	 :bold-family nil ; use whatever the underlying face has
-  │ 	 :bold-weight bold
+  │          :bold-family nil ; use whatever the underlying face has
+  │          :bold-weight bold
   │ 
-  │ 	 :italic-family nil
-  │ 	 :italic-slant italic
+  │          :italic-family nil
+  │          :italic-slant italic
   │ 
-  │ 	 :line-spacing nil)))
+  │          :line-spacing nil)))
   │ 
   │ ;; Set the last preset or fall back to desired style from `fontaine-presets'
   │ ;; (the `regular' in this case).
